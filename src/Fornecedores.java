@@ -14,7 +14,14 @@ public class Fornecedores {
 		this.telefone = telefone;
 		this.produtos = new ArrayList();
 	}
-
+	
+	public void cadastraProduto(String nome, String descricao, double preco) {
+		produtos.add(new Produtos(nome, descricao, preco));
+	}
+	
+	
+	
+	
 	public String getNome() {
 		return nome;
 	}
