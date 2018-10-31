@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Fornecedor {
@@ -28,7 +29,7 @@ public class Fornecedor {
 	}
 	
 	public String exibeTodosProdutos() {
-		produtos.sort();
+		produtos.sort((s1, s2) -> Integer.compare(s1.getNome().length(), s2.getNome().length()));
 		String todosProdutos = "";
 		for(Produto produto: produtos) {
 			todosProdutos += produto.toString()+" | ";
