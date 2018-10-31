@@ -1,10 +1,10 @@
 
-public class Produtos {
+public class Produto {
 	private String nome;
 	private String descricao;
 	private double preco;
 	
-	public Produtos(String nome, String descricao, double preco) {
+	public Produto(String nome, String descricao, double preco) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
@@ -51,7 +51,7 @@ public class Produtos {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Produtos other = (Produtos) obj;
+		Produto other = (Produto) obj;
 		if (descricao == null) {
 			if (other.descricao != null)
 				return false;

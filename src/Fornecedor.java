@@ -6,7 +6,7 @@ public class Fornecedor {
 	private String nome;
 	private String email;
 	private String telefone;
-	private List <Produtos> produtos;
+	private List <Produto> produtos;
 	
 	public Fornecedor(String nome, String email, String telefone) {
 		this.nome = nome;
@@ -16,9 +16,25 @@ public class Fornecedor {
 	}
 	
 	public void cadastraProduto(String nome, String descricao, double preco) {
-		produtos.add(new Produtos(nome, descricao, preco));
+		produtos.add(new Produto(nome, descricao, preco));
 	}
 	
+	public String exibeProduto(String nome, String descricao) {
+		int indice = 0;
+		if (produtos.contains(nome) && produtos.contains(descricao)) {
+			indice = produtos.indexOf(nome);
+		}
+		return produtos.get(indice).toString();
+	}
+	
+	public String exibeTodosProdutos() {
+		produtos.sort();
+		String todosProdutos = "";
+		for(Produto produto: produtos) {
+			todosProdutos += produto.toString()+" | ";
+		}
+		return todosProdutos;
+	}
 	
 	
 	
