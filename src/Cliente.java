@@ -1,14 +1,14 @@
 
-public class Clientes {
+public class Cliente {
 	private String CPF;
 	private String localTrabalho;
 	private String nome;
 	private String email;
 	
-	public Clientes(String cPF, String localTrabalho, String nome, String email) {
+	public Cliente(String nome, String cPF, String localTrabalho, String email) {
+		this.nome = nome;
 		this.CPF = cPF;
 		this.localTrabalho = localTrabalho;
-		this.nome = nome;
 		this.email = email;
 	}
 	
@@ -57,7 +57,7 @@ public class Clientes {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Clientes other = (Clientes) obj;
+		Cliente other = (Cliente) obj;
 		if (CPF == null) {
 			if (other.CPF != null)
 				return false;

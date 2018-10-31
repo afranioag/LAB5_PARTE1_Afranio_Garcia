@@ -2,13 +2,13 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Fornecedores {
+public class Fornecedor {
 	private String nome;
 	private String email;
 	private String telefone;
 	private List <Produtos> produtos;
 	
-	public Fornecedores(String nome, String email, String telefone) {
+	public Fornecedor(String nome, String email, String telefone) {
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
@@ -58,7 +58,7 @@ public class Fornecedores {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Fornecedores other = (Fornecedores) obj;
+		Fornecedor other = (Fornecedor) obj;
 		if (nome == null) {
 			if (other.nome != null)
 				return false;
