@@ -15,14 +15,27 @@ public class SAGA {
 	}
 	
 	// metodos para clientes
-	public boolean cadastraCliente(String nome, String CPF, String localTrabalho, String email) {
+	public String cadastraCliente(String nome, String CPF, String localTrabalho, String email) {
+		
+		if(nome == null || nome == "") {
+			throw new IllegalArgumentException("Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.");
+		}
+		if(email == null || email == "") {
+			throw new IllegalArgumentException("Erro no cadastro do cliente: email nao pode ser vazio ou nulo.");
+		}
+		if(localTrabalho == null || localTrabalho == "") {
+			throw new IllegalArgumentException("Erro no cadastro do cliente: localizacao nao pode ser vazio ou nulo.");
+		}
 		if(clientes.containsKey(CPF)) {
-			return false;
+			throw new IllegalArgumentException("Erro no cadastro do cliente: cliente ja existe.");
+		}
+		if (CPF.length() != 11) {
+			throw new IllegalArgumentException("Erro no cadastro do cliente: cpf invalido.");
 		}
 		
 		Cliente novoCliente = new Cliente(nome, CPF, localTrabalho, email);
 		clientes.put(CPF, novoCliente);
-		return true;
+		return CPF;
 	}
 	public void removerCliente(String CPF) {
 		clientes.remove(CPF);
