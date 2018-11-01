@@ -1,5 +1,5 @@
 
-public class Cliente {
+public class Cliente implements Comparable<Cliente>{
 	private String CPF;
 	private String localTrabalho;
 	private String nome;
@@ -70,6 +70,11 @@ public class Cliente {
 	@Override
 	public String toString() {
 		return this.nome+" - "+this.localTrabalho+" - "+this.email;
+	}
+
+	@Override
+	public int compareTo(Cliente c) {
+		return toString().compareTo(c.toString());		
 	}
 	
 }

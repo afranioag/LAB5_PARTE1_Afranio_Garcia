@@ -1,4 +1,9 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class SAGA {
 	private HashMap<String, Cliente> clientes;
@@ -10,9 +15,14 @@ public class SAGA {
 	}
 	
 	// metodos para clientes
-	public void cadastraCliente(String nome, String CPF, String localTrabalho, String email) {
+	public boolean cadastraCliente(String nome, String CPF, String localTrabalho, String email) {
+		if(clientes.containsKey(CPF)) {
+			return false;
+		}
+		
 		Cliente novoCliente = new Cliente(nome, CPF, localTrabalho, email);
 		clientes.put(CPF, novoCliente);
+		return true;
 	}
 	public void removerCliente(String CPF) {
 		clientes.remove(CPF);
@@ -28,10 +38,21 @@ public class SAGA {
 		return clientes.get(CPF).toString();
 	}
 	
-//	public String toStringListaDeCliente() {
-//		String listaDeClientes = "";	
-//		return listaDeClientes;
-//	}
+	public String exibeTodosClientes() {
+		Set <String> cpfClientes = clientes.keySet();
+		List <String> nomesClientes = new ArrayList<>();
+		for(String chaves: cpfClientes) {
+			nomesClientes.add(clientes.get(chaves).toString());
+		}
+		Collections.sort(nomesClientes);
+		
+		String nomesOrdenados = "";
+		for(String nomes: nomesClientes) {
+			nomesOrdenados += nomesClientes.toString()+" | ";
+		}
+		return nomesOrdenados;
+		
+	}
 	
 	
 	// metodos para fornecedores
@@ -53,12 +74,21 @@ public class SAGA {
 		return fornecedores.get(nome).toString();
 	}
 	
-//	public String exibeTodosFornecedores() {
-//		String dadosFornecedores = "";
-//		return dadosFornecedores;
-//	}
-	
-	// metodos para produtos
+	public String exibeTodosFornecedores() {
+		Set<String> nomesFornecedores = fornecedores.keySet();
+		List <String> fornOrdenados = new ArrayList<>();
+		for(String chaves: nomesFornecedores) {
+				fornOrdenados.add(fornecedores.get(chaves).toString());
+		}
+		Collections.sort(fornOrdenados);
+		
+		String nomesOrd = "";
+		for(String nomes: fornOrdenados) {
+			nomesOrd += nomes+" | ";
+		}
+		return nomesOrd;
+	}
+
 	public void cadastraProdutoParaFornecedor(String nomeForncedor, String nomeProduto, String descricaoProduto, double precoProduto) {
 		fornecedores.get(nomeForncedor).cadastraProduto(nomeProduto, descricaoProduto, precoProduto);
 	}

@@ -1,0 +1,37 @@
+## Cadastrando combos ##
+
+# Adicionando mais alguns produtos #
+
+adicionaProduto fornecedor="Seu Olavo" nome="Suco" descricao="Suco de maracuja (copo)" preco=1.50
+adicionaProduto fornecedor="Seu Olavo" nome="Coca-cola" descricao="Coca-cola (lata)" preco=3.00
+adicionaProduto fornecedor="Dona Alba" nome="Suco" descricao="Suco de goiaba (copo)" preco=2.00
+adicionaProduto fornecedor="Marcos" nome="Batata frita" descricao="Porcao de batata frita" preco=4.00
+adicionaProduto fornecedor="Marcos" nome="Refrigerante" descricao="Refrigerante (lata)" preco=2.50
+
+adicionaCombo fornecedor="Seu Olavo" nome="X-burguer + suco" descricao="X-burguer com suco de maracuja" fator=0.20 produtos="X-burguer - Hamburguer de carne com queijo e calabresa, Suco - Suco de maracuja (copo)"
+adicionaCombo fornecedor="Seu Olavo" nome="X-burguer + refrigerante" descricao="X-burguer com refri" fator=0.20 produtos="X-burguer - Hamburguer de carne com queijo e calabresa, Refrigerante - Coca-cola (lata)"
+adicionaCombo fornecedor="Dona Alba" nome="Rubacao com suco" descricao="Rubacao completo com suco" fator=0.15 produtos="Rubacao - Feijao com arroz e queijo coalho, Suco - Suco de goiaba (copo)"
+adicionaCombo fornecedor="Marcos" nome="Coxao com batata" descricao="Coxao de frango com batata frita" fator=0.30 produtos="Coxao de Frango - Coxao de frango com cheddar, Refrigerante - Refrigerante (lata)" 
+
+## Exibindo combos ##
+
+expect "X-burguer + suco - X-burguer com suco de maracuja - R$4,80" exibeProduto fornecedor="Seu Olavo" nome="X-burguer + suco" descricao="X-burguer com suco de maracuja"
+expect "X-burger + refrigerante - X-burguer com refri - R$6,00" exibeProduto fornecedor="Seu Olavo" nome="X-burguer + refrigerante" descricao="X-burguer com coca"
+expect "Rubacao com suco - Rubacao completo com suco - R$16,15" exibeProduto fornecedor="Dona Alba" nome="Rubacao com suco" descricao="Rubacao completo com suco"
+expect "Marcos - Coxao com batata - R$4,55" exibeProduto fornecedor="Marcos" nome="Coxao com batata" descricao="Coxao de frango com batata frita"
+
+expect "Marcos - Batata frita - Porcao de batata frita - R$4,00 | Marcos - Coxao com batata - Coxao de frango com batata frita - R$4,55 | Marcos - Coxao de Frango - Coxao de frango com cheddar - R$2,50 | Marcos - Coxao de Pizza - Coxao de frango com presunto e queijo - R$2,50" exibeProdutosFornecedor fornecedor="Marcos"
+expect "Dona Alba - Rubacao - Feijao com arroz e queijo coalho - R$14,00 | Dona Alba - Rubacao com suco - Rubacao completo com suco - R$16,15 | Dona Alba - Suco - Suco de goiaba (copo) - R$2,00 | Marcos - Batata frita - Porcao de batata frita - R$4,00 | Marcos - Coxao com batata - Coxao de frango com batata frita - R$4,55 | Marcos - Coxao de Frango - Coxao de frango com cheddar - R$2,50 | Marcos - Coxao de Pizza - Coxao de frango com presunto e queijo - R$2,50 | Seu Olavo - Coca-cola - Coca-cola (lata) - R$3,00 | Seu Olavo - Suco - Suco de maracuja (copo) - R$2,00 | Seu Olavo - X-burguer - Hamburguer de carne com queijo e calabresa - R$4,50 | Seu Olavo - X-burguer + suco - X-burguer com suco de maracuja - R$4,80 | Seu Olavo - X-burger + refrigerante - X-burguer com refri - R$6,00" exibeProdutos
+
+## Editando combos ##
+
+editaCombo nome="Coxao com batata" descricao="Coxao de frango com batata frita" fornecedor="Marcos" novoFator=0.20
+editaCombo nome="Rubacao com suco" descricao="Rubacao completo com suco" fornecedor="Dona Alba" novoFator=0.25
+
+expect "Marcos - Coxao com batata - R$5,20" exibeCombo fornecedor="Marcos" nome="Coxao com batata" descricao="Coxao de frango com batata frita"
+expect "Rubacao com suco - Rubacao completo com suco - R$14,25" exibeCombo fornecedor="Dona Alba" nome="Rubacao com suco" descricao="Rubacao completo com suco"
+
+## Removendo combos ##
+
+removeProduto nome="X-burguer + refrigerante" descricao="X-burguer com refri" fornecedor="Seu Olavo"
+expectError "Erro na remocao de combo: combo nao existe" removeProduto nome="X-burguer + refrigerante" descricao="X-burguer com refri" fornecedor="Seu Olavo"

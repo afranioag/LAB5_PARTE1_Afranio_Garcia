@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class Fornecedor {
+public class Fornecedor implements Comparable<Fornecedor>{
 	private String nome;
 	private String email;
 	private String telefone;
@@ -38,9 +38,9 @@ public class Fornecedor {
 	}
 	
 	public String exibeTodosProdutos() {
-		//produtos.sort((s1, s2) -> Integer.compare(s1.getNome().length(), s2.getNome().length()));
 		
 		String todosProdutos = "";
+		Collections.sort(produtos);
 		for(Produto produto: produtos) {
 			todosProdutos += produto.toString()+" | ";
 		}
@@ -92,6 +92,11 @@ public class Fornecedor {
 		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
+	}
+	
+	@Override
+	public int compareTo(Fornecedor f) {
+		return toString().compareTo(f.toString());
 	}
 	
 	@Override
