@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,7 +16,7 @@ public class SAGA {
 	}
 	
 	// metodos para clientes
-	public String cadastraCliente(String nome, String CPF, String localTrabalho, String email) {
+	public String cadastraCliente(String cpf, String nome, String email, String localizacao) {
 		
 		if(nome == null || nome == "") {
 			throw new IllegalArgumentException("Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.");
@@ -23,55 +24,55 @@ public class SAGA {
 		if(email == null || email == "") {
 			throw new IllegalArgumentException("Erro no cadastro do cliente: email nao pode ser vazio ou nulo.");
 		}
-		if(localTrabalho == null || localTrabalho == "") {
+		if(localizacao == null || localizacao == "") {
 			throw new IllegalArgumentException("Erro no cadastro do cliente: localizacao nao pode ser vazio ou nulo.");
 		}
-		if(clientes.containsKey(CPF)) {
+		if(clientes.containsKey(cpf)) {
 			throw new IllegalArgumentException("Erro no cadastro do cliente: cliente ja existe.");
 		}
-		if (CPF.length() != 11) {
+		if (cpf.length() != 11) {
 			throw new IllegalArgumentException("Erro no cadastro do cliente: cpf invalido.");
 		}
 		
-		Cliente novoCliente = new Cliente(nome, CPF, localTrabalho, email);
-		clientes.put(CPF, novoCliente);
-		return CPF;
+		Cliente novoCliente = new Cliente(cpf, nome, email, localizacao);
+		clientes.put(cpf, novoCliente);
+		return cpf;
 	}
 	
-	public void removerCliente(String CPF) {
+	public void removeCliente(String CPF) {
 		if(!clientes.containsKey(CPF)) {
 			throw new IllegalArgumentException("Erro na exibicao do cliente: cliente nao existe.");
 		}
 		clientes.remove(CPF);
 	}
 	
-	public void editarDadosDoCliente(String CPF, String atributoMudar, String novoValor) {
-		if(!clientes.containsKey(CPF)) {
+	public void editaCliente(String cpf, String atributo, String novoValor) {
+		if(!clientes.containsKey(cpf)) {
 			throw new IllegalArgumentException("Erro na edicao do cliente: cliente nao existe.");
 		}
-		if(atributoMudar != "nome" && atributoMudar != "email" && atributoMudar != "localDeTrabalho") {
+		if(atributo != "nome" && atributo != "email" && atributo != "localDeTrabalho") {
 			throw new IllegalArgumentException("Erro na edicao do cliente: atributo nao existe.");
 		}
-		if(atributoMudar == null || atributoMudar == "") {
+		if(atributo == null || atributo == "") {
 			throw new IllegalArgumentException("Erro na edicao do cliente: atributo nao pode ser vazio ou nulo.");
 		}
 		if(novoValor == null || novoValor != "") {
 			throw new IllegalArgumentException("Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo.");
 		}
-		if(atributoMudar == "nome") {
-			clientes.get(CPF).setNome(novoValor);
-		}else if(atributoMudar == "email") {
-			clientes.get(CPF).setEmail(novoValor);
-		}else if(atributoMudar == "localDeTrabalho") {
-			clientes.get(CPF).setLocalTrabalho(novoValor);
+		if(atributo == "nome") {
+			clientes.get(cpf).setNome(novoValor);
+		}else if(atributo == "email") {
+			clientes.get(cpf).setEmail(novoValor);
+		}else if(atributo == "localDeTrabalho") {
+			clientes.get(cpf).setLocalTrabalho(novoValor);
 		}
 	}
 	
-	public String exibeCliente(String CPF) {
-		if(!clientes.containsKey(CPF)) {
+	public String exibeCliente(String cpf) {
+		if(!clientes.containsKey(cpf)) {
 			throw new IllegalArgumentException("Erro na exibicao do cliente: cliente nao existe.");
 		}
-		return clientes.get(CPF).toString();
+		return clientes.get(cpf).toString();
 	}
 	
 	public String exibeTodosClientes() {
