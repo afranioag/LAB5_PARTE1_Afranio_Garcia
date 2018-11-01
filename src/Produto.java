@@ -65,6 +65,13 @@ public class Produto {
 		return true;
 	}
 	
+	public String exibeProduto(String nome, String descricao) {
+		if (this.nome.equals(nome) && this.descricao.equals(descricao)) {
+			return toString();
+		}
+		return "n esta salvo";
+	}
+	
 	@Override
 	public String toString() {
 		return this.nome+" - "+this.descricao+" - "+this.preco;

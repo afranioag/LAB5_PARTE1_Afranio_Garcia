@@ -64,7 +64,11 @@ public class SAGA {
 	}
 	
 	public String exibeProdutoDoFornecedor(String nomeFornecedor, String nomeProduto, String descricaoProduto) {
-		return fornecedores.get(nomeFornecedor).exibeProduto(nomeProduto, descricaoProduto);
+		try {
+			return fornecedores.get(nomeFornecedor).exibeProduto(nomeProduto, descricaoProduto);
+		}catch(Exception e) {
+			return e.getMessage();
+		}
 	}
 	
 	public String exibeTodosProdutosDoFornecedor(String nomefornecedor) {

@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -21,15 +22,24 @@ public class Fornecedor {
 	}
 	
 	public String exibeProduto(String nome, String descricao) {
-		int indice = 0;
-		if (produtos.contains(nome) && produtos.contains(descricao)) {
-			indice = produtos.indexOf(nome);
+		int indice = -1;
+		
+		for(Produto prod: produtos) {
+			if (prod.getNome().equals(nome) && prod.getDescricao().equals(descricao)) {
+				indice = produtos.indexOf(prod);
+			}
 		}
+		
+		if (indice < 0 ) {
+			throw new ArrayIndexOutOfBoundsException("Produto não cadastrado");
+		}
+		
 		return produtos.get(indice).toString();
 	}
 	
 	public String exibeTodosProdutos() {
-		produtos.sort((s1, s2) -> Integer.compare(s1.getNome().length(), s2.getNome().length()));
+		//produtos.sort((s1, s2) -> Integer.compare(s1.getNome().length(), s2.getNome().length()));
+		
 		String todosProdutos = "";
 		for(Produto produto: produtos) {
 			todosProdutos += produto.toString()+" | ";
