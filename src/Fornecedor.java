@@ -21,6 +21,32 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		produtos.add(new Produto(nome, descricao, preco));
 	}
 	
+	public void editaProduto(String nome, String descricao, double preco) {
+		int indice = -1;
+		for(Produto prod: produtos) {
+			if (prod.getNome().equals(nome) && prod.getDescricao().equals(descricao)) {
+				indice = produtos.indexOf(prod);
+			}
+		}
+		if(indice < 0) {
+			throw new ArrayIndexOutOfBoundsException("Produto nao cadastrado");
+		}
+		produtos.get(indice).setNome(nome);
+		produtos.get(indice).setDescricao(descricao);
+		produtos.get(indice).setPreco(preco);
+	}
+	
+	public boolean existeProduto(String nome, String descricao) {
+		int indice = -1;
+		
+		for(Produto prod: produtos) {
+			if (prod.getNome().equals(nome) && prod.getDescricao().equals(descricao)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public String exibeProduto(String nome, String descricao) {
 		int indice = -1;
 		
@@ -33,8 +59,21 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		if (indice < 0 ) {
 			throw new ArrayIndexOutOfBoundsException("Produto não cadastrado");
 		}
-		
 		return produtos.get(indice).toString();
+	}
+	
+	public void removeProduto(String nome, String descricao) {
+		int indice = -1;
+		
+		for(Produto prod: produtos) {
+			if (prod.getNome().equals(nome) && prod.getDescricao().equals(descricao)) {
+				indice = produtos.indexOf(prod);
+			}
+		}
+		if (indice < 0 ) {
+			throw new ArrayIndexOutOfBoundsException("Produto não cadastrado");
+		}
+		produtos.remove(indice);
 	}
 	
 	public String exibeTodosProdutos() {
@@ -46,8 +85,6 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		}
 		return todosProdutos;
 	}
-	
-	
 	
 	public String getNome() {
 		return nome;

@@ -66,10 +66,7 @@ public class Produto implements Comparable<Produto> {
 	}
 	
 	public String exibeProduto(String nome, String descricao) {
-		if (this.nome.equals(nome) && this.descricao.equals(descricao)) {
 			return toString();
-		}
-		return "n esta salvo";
 	}
 	
 	@Override
