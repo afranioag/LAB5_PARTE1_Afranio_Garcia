@@ -20,7 +20,6 @@ public class Facade {
 	}
 	
 	public void  editaCliente(String cpf, String atributo, String novoValor) {
-		
 			saga.editaCliente(cpf, atributo, novoValor);
 	}
 	public String exibeCliente (String CPF) {
@@ -41,12 +40,10 @@ public class Facade {
 	}
 	
 	public void editaFornecedor(String nome, String atributo, String novoValor) {
-		
 			saga.editaFornecedor(nome, atributo, novoValor);
 	}
 	
 	public String exibeFornecedor(String nome) {
-		
 			return saga.exibeFornecedor(nome);
 	}
 	
