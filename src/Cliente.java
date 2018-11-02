@@ -1,11 +1,25 @@
-
+/**
+ * Representação de um cliente. Eles será construido a partir
+ * do seu cpf que será sua identificação e deve seguir o modelo vigente do pais com 11 caracteres.
+ * O nome, um local de trabalho e seu email.
+ * @author afranio
+ *
+ */
 public class Cliente implements Comparable<Cliente>{
 	private String CPF;
 	private String localTrabalho;
 	private String nome;
 	private String email;
 	
-	public Cliente( String cpf, String nome, String localTrabalho, String email) {
+	/**
+	 * constroi o cliente.
+	 * 
+	 * @param cpf, o cpf do cliente
+	 * @param nome, o nome do cliente
+	 * @param localTrabalho, o local onde ele trabalha
+	 * @param email, seu email
+	 */
+	public Cliente( String cpf, String nome, String email, String localTrabalho) {
 		this.nome = nome;
 		this.CPF = cpf;
 		this.localTrabalho = localTrabalho;
@@ -66,10 +80,12 @@ public class Cliente implements Comparable<Cliente>{
 		return true;
 	}
 
-
+	/**
+	 * 
+	 */
 	@Override
 	public String toString() {
-		return this.nome+" - "+this.localTrabalho+" - "+this.email;
+		return this.nome + " - " + this.localTrabalho + " - "+this.email;
 	}
 
 	@Override

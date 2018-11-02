@@ -75,16 +75,16 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		produtos.remove(indice);
 	}
 	
-	public String exibeTodosProdutos() {
+	public String exibeProdutos() {
 		int contador = 0;
 		String todosProdutos = "";
 		Collections.sort(produtos);
 		for(Produto produto: produtos) {
 			contador += 1;
 			if (contador == produtos.size()) {
-				todosProdutos += produto.toString();
+				todosProdutos += this.nome+" - "+produto.toString();
 			}else {
-				todosProdutos += produto.toString()+" | ";
+				todosProdutos += this.nome+" - "+produto.toString()+" | ";
 			}
 		}
 		return todosProdutos;

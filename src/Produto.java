@@ -1,9 +1,20 @@
-
+/**
+ * Representação de um produto alimenticio para lanchonetes
+ * Ele é criado a partir de um nome, uma descrição e o seu preço de mercado.
+ * @author afranio
+ *
+ */
 public class Produto implements Comparable<Produto> {
 	private String nome;
 	private String descricao;
 	private double preco;
 	
+	/**
+	 * Constroi o prouto
+	 * @param nome o nome do produto
+	 * @param descricao a descrição que representa o produto
+	 * @param preco o preco de mercado
+	 */
 	public Produto(String nome, String descricao, double preco) {
 		this.nome = nome;
 		this.descricao = descricao;
@@ -65,6 +76,14 @@ public class Produto implements Comparable<Produto> {
 		return true;
 	}
 	
+	/**
+	 * Exibe o produto a partir do seu ToString,
+	 * Para isso ele precisa receber o nome do produto e sua descrição para saber 
+	 * a qual produto se refere
+	 * @param nome o nome do produto
+	 * @param descricao a descrição do produto
+	 * @return retorna uma string com a representação do produto. NOME - DESCRIÇÃO - PREÇO
+	 */
 	public String exibeProduto(String nome, String descricao) {
 			return toString();
 	}
@@ -74,9 +93,13 @@ public class Produto implements Comparable<Produto> {
 		return toString().compareTo(p.toString());
 	}
 	
+	/**
+	 * Retorna uma representação do produto, com nome, descrição e preco.
+	 * 
+	 */
 	@Override
 	public String toString() {
-		return this.nome+" - "+this.descricao+" - "+this.preco;
+		return this.nome+" - "+this.descricao+" - R$"+String.valueOf(this.preco).replace(".", ",")+"0";
 	}
 }
 

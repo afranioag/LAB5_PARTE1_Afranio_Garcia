@@ -30,20 +30,20 @@ public class Facade {
 		return saga.exibeClientes();
 	}
 	
-	public void adicionaFornecedor(String nome, String email, String telefone) {
-			saga.adicionaFornecedor(nome, email, telefone);
+	public String adicionaFornecedor(String nome, String email, String telefone) {
+			return saga.adicionaFornecedor(nome, email, telefone);
 	}
 	
-	public void removeFornecedor(String nome) {
-			saga.removeFornecedor(nome);
+	public String exibeFornecedor(String nome) {
+		return saga.exibeFornecedor(nome);
 	}
 	
 	public void editaFornecedor(String nome, String atributo, String novoValor) {
 			saga.editaFornecedor(nome, atributo, novoValor);
 	}
 	
-	public String exibeFornecedor(String nome) {
-			return saga.exibeFornecedor(nome);
+	public void removeFornecedor(String nome) {
+		saga.removeFornecedor(nome);
 	}
 	
 	public String exibeFornecedores() {
@@ -58,12 +58,16 @@ public class Facade {
 			return saga.exibeProduto(nome, descricao, fornecedor);
 	}
 	
-	public String exibeProdutos(String nomeFornecedor) {
-			return saga.exibeProdutos(nomeFornecedor);
+	public String exibeProdutosFornecedor(String nomeFornecedor) {
+			return saga.exibeProdutosFornecedor(nomeFornecedor);
 	}
 	
 	public void editaProduto (String nome, String descricao, String fornecedor, double novoPreco) {
 			saga.editaProduto(nome, descricao, fornecedor, novoPreco);
+	}
+	
+	public String exibeProdutos() {
+		return saga.exibeProdutos();
 	}
 	
 	public void removeProduto(String nome, String descricao, String fornecedor) {
