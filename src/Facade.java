@@ -22,16 +22,15 @@ public class Facade {
 	public void  editaCliente(String cpf, String atributo, String novoValor) {
 			saga.editaCliente(cpf, atributo, novoValor);
 	}
-	public String exibeCliente (String CPF) {
-	
-			return saga.exibeCliente(CPF);
+	public String exibeCliente (String cpf) {
+			return saga.exibeCliente(cpf);
 	}
 	
 	public String exibeClientes() {
 		return saga.exibeClientes();
 	}
 	
-	public void adicionaFornecedores(String nome, String email, String telefone) {
+	public void adicionaFornecedor(String nome, String email, String telefone) {
 			saga.adicionaFornecedor(nome, email, telefone);
 	}
 	
@@ -59,8 +58,8 @@ public class Facade {
 			return saga.exibeProduto(nome, descricao, fornecedor);
 	}
 	
-	public String exibeTodosProdutosDoFornecedor(String nomeFornecedor) {
-			return saga.exibeTodosProdutosDoFornecedor(nomeFornecedor);
+	public String exibeProdutos(String nomeFornecedor) {
+			return saga.exibeProdutos(nomeFornecedor);
 	}
 	
 	public void editaProduto (String nome, String descricao, String fornecedor, double novoPreco) {

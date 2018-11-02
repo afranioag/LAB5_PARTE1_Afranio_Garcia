@@ -173,27 +173,27 @@ public class SAGA {
 	}
 	
 	// metodos para produtos
-	public void adicionaProduto(String nomeForncedor, String nomeProduto, String descricaoProduto, double precoProduto) {
-		if(!fornecedores.containsKey(nomeForncedor)) {
+	public void adicionaProduto(String forncedor, String nome, String descricao, double preco) {
+		if(!fornecedores.containsKey(forncedor)) {
 			throw new IllegalArgumentException("Erro no cadastro de produto: fornecedor nao existe.");
 		}
-		if(nomeProduto == null || nomeProduto == "") {
+		if(nome == null || nome == "") {
 			throw new IllegalArgumentException("Erro no cadastro de produto: nome nao pode ser vazio ou nulo.");
 		}
-		if(descricaoProduto == null || descricaoProduto == "") {
+		if(descricao == null || descricao == "") {
 			throw new IllegalArgumentException("Erro no cadastro de produto: descricao nao pode ser vazia ou nula.");
 		}
-		if(nomeForncedor == null || nomeForncedor == "") {
+		if(forncedor == null || forncedor == "") {
 			throw new IllegalArgumentException("Erro no cadastro de produto: fornecedor nao pode ser vazio ou nulo.");
 		}
-		if(precoProduto < 0) {
+		if(preco < 0) {
 			throw new IllegalArgumentException("Erro no cadastro de produto: preco invalido.");
 		}
-		if(fornecedores.get(nomeForncedor).existeProduto(nomeProduto, descricaoProduto)) {
+		if(fornecedores.get(forncedor).existeProduto(nome, descricao)) {
 			throw new IllegalArgumentException("Erro no cadastro de produto: produto ja existe.");
 		}
 		
-		fornecedores.get(nomeForncedor).cadastraProduto(nomeProduto, descricaoProduto, precoProduto);
+		fornecedores.get(forncedor).cadastraProduto(nome, descricao, preco);
 	}
 	
 	public String exibeProduto(String nome, String descricao, String fornecedor) {
@@ -216,7 +216,7 @@ public class SAGA {
 		return fornecedores.get(fornecedor).exibeProduto(nome, descricao);
 	}
 	
-	public String exibeTodosProdutosDoFornecedor(String nomeFornecedor) {
+	public String exibeProdutos(String nomeFornecedor) {
 		if(nomeFornecedor == null || nomeFornecedor == "") {
 			throw new IllegalArgumentException("Erro na exibicao dos produto: fornecedor nao pode ser vazio ou nulo.");
 		}
