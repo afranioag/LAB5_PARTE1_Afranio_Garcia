@@ -2,7 +2,7 @@ import easyaccept.EasyAccept;
 
 public class Facade {
 	public static void main(String[] args) {
-		args = new String[] {"Facade", "easyaccept/use_case_1.txt"};
+		args = new String[] {"Facade", "easyaccept/use_case_1.txt","easyaccept/use_case_2.txt","easyaccept/use_case_3.txt"};
 		EasyAccept.main(args);
 	}
 	private SAGA saga;
@@ -12,115 +12,66 @@ public class Facade {
 	}
 	
 	public String adicionaCliente(String cpf, String nome, String email, String localizacao) {
-		try{
-			saga.cadastraCliente(cpf, nome, email, localizacao);
-			return cpf;
-		}catch (Exception e) {
-			 return e.getMessage();
-		}
+		return	saga.adicionaCliente(cpf, nome, email, localizacao);
 	}
 	
 	public void removeCliente (String cpf) {
-		try {
 			saga.removeCliente(cpf);
-		}catch (Exception e) {
-			 System.out.println(e.getMessage());
-		}
 	}
 	
 	public void  editaCliente(String cpf, String atributo, String novoValor) {
-		try {
+		
 			saga.editaCliente(cpf, atributo, novoValor);
-		}catch (Exception e) {
-			 System.out.println(e.getMessage());
-		}
 	}
 	public String exibeCliente (String CPF) {
-		try {
+	
 			return saga.exibeCliente(CPF);
-		}catch (Exception e) {
-			 return e.getMessage();
-		}
 	}
 	
-	public String exibeTodosClientes() {
-		return saga.exibeTodosClientes();
+	public String exibeClientes() {
+		return saga.exibeClientes();
 	}
 	
-	public void cadastraFornecedores(String nome, String email, String telefone) {
-		try {
-			saga.cadastraFornecedor(nome, email, telefone);
-		}catch (Exception e) {
-			 System.out.println(e.getMessage());
-		}
+	public void adicionaFornecedores(String nome, String email, String telefone) {
+			saga.adicionaFornecedor(nome, email, telefone);
 	}
 	
 	public void removeFornecedor(String nome) {
-		try {
 			saga.removeFornecedor(nome);
-		}catch (Exception e) {
-			 System.out.println(e.getMessage());
-		}
 	}
 	
-	public void editaFornecedor(String nome, String atributoMudar, String novoValor) {
-		try {
-			saga.editaFornecedor(nome, atributoMudar, novoValor);
-		}catch (Exception e) {
-			 System.out.println(e.getMessage());
-		}
+	public void editaFornecedor(String nome, String atributo, String novoValor) {
+		
+			saga.editaFornecedor(nome, atributo, novoValor);
 	}
 	
 	public String exibeFornecedor(String nome) {
-		try {
+		
 			return saga.exibeFornecedor(nome);
-		}catch(Exception e) {
-			return e.getMessage();
-		}
 	}
 	
-	public String exibeTodosFornecedores() {
-		return saga.exibeTodosFornecedores();
+	public String exibeFornecedores() {
+		return saga.exibeFornecedores();
 	}
 	
-	public void cadastraProdutoParaFornecedor(String nomeForncedor, String nomeProduto, String descricaoProduto, double precoProduto) {
-		try {
-			saga.cadastraProdutoParaFornecedor(nomeForncedor, nomeProduto, descricaoProduto, precoProduto);
-		}catch(Exception e) {
-			 System.out.println(e.getMessage());
-		}
+	public void adicionaProduto(String forncedor, String nome, String descricao, double preco) {
+			saga.adicionaProduto(forncedor, nome, descricao, preco);
 	}
 	
-	public String exibeProdutoDoFornecedor(String nomeFornecedor, String nomeProduto, String descricaoProduto) {
-		try {
-			return saga.exibeProdutoDoFornecedor(nomeFornecedor, nomeProduto, descricaoProduto);
-		}catch(Exception e) {
-			return e.getMessage();
-		}
+	public String exibeProduto(String nome, String descricao, String fornecedor) {
+			return saga.exibeProduto(nome, descricao, fornecedor);
 	}
 	
 	public String exibeTodosProdutosDoFornecedor(String nomeFornecedor) {
-		try {
 			return saga.exibeTodosProdutosDoFornecedor(nomeFornecedor);
-		}catch(Exception e) {
-			return e.getMessage();
-		}
 	}
 	
-	public void editaProduto (String nomeFornecedor, String nome, String descricao, double preco) {
-		try {
-			saga.editaProduto(nomeFornecedor, nome, descricao, preco);
-		}catch(Exception e) {
-			 System.out.println(e.getMessage());
-		}
+	public void editaProduto (String nome, String descricao, String fornecedor, double novoPreco) {
+			saga.editaProduto(nome, descricao, fornecedor, novoPreco);
 	}
 	
-	public void removeProduto(String nomeFornecedor, String nome, String descricao) {
-		try {
-			saga.removeProduto(nomeFornecedor, nome, descricao);
-		}catch(Exception e) {
-			 System.out.println(e.getMessage());
-		}
+	public void removeProduto(String nome, String descricao, String fornecedor) {
+			saga.removeProduto(nome, descricao, fornecedor);
 	}
 }
 

@@ -16,7 +16,7 @@ public class SAGA {
 	}
 	
 	// metodos para clientes
-	public String cadastraCliente(String cpf, String nome, String email, String localizacao) {
+	public String adicionaCliente(String cpf, String nome, String email, String localizacao) {
 		
 		if(nome == null || nome == "") {
 			throw new IllegalArgumentException("Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.");
@@ -75,7 +75,7 @@ public class SAGA {
 		return clientes.get(cpf).toString();
 	}
 	
-	public String exibeTodosClientes() {
+	public String exibeClientes() {
 		Set <String> cpfClientes = clientes.keySet();
 		List <String> nomesClientes = new ArrayList<>();
 		for(String chaves: cpfClientes) {
@@ -84,8 +84,15 @@ public class SAGA {
 		Collections.sort(nomesClientes);
 		
 		String nomesOrdenados = "";
+		int contador = 0;
 		for(String nomes: nomesClientes) {
-			nomesOrdenados += nomesClientes.toString()+" | ";
+			contador += 1;
+			if(contador == nomesClientes.size()) {
+				nomesOrdenados += nomes.toString();
+			}else {
+				nomesOrdenados += nomes.toString()+" | ";
+			}
+			
 		}
 		return nomesOrdenados;
 		
@@ -93,7 +100,7 @@ public class SAGA {
 	
 	
 	// metodos para fornecedores
-	public void cadastraFornecedor(String nome, String email, String telefone) {
+	public void adicionaFornecedor(String nome, String email, String telefone) {
 		if(nome == null || nome == "") {
 			throw new IllegalArgumentException("Erro no cadastro do fornecedor: nome nao pode ser vazio ou nulo.");
 		}
@@ -147,23 +154,29 @@ public class SAGA {
 		return fornecedores.get(nome).toString();
 	}
 	
-	public String exibeTodosFornecedores() {
+	public String exibeFornecedores() {
 		Set<String> nomesFornecedores = fornecedores.keySet();
 		List <String> fornOrdenados = new ArrayList<>();
 		for(String chaves: nomesFornecedores) {
 				fornOrdenados.add(fornecedores.get(chaves).toString());
 		}
 		Collections.sort(fornOrdenados);
-		
+		int contador = 0;
 		String nomesOrd = "";
 		for(String nomes: fornOrdenados) {
-			nomesOrd += nomes+" | ";
+			contador += 1;
+			if (contador == fornOrdenados.size()) {
+				nomesOrd += nomes;
+			}else {
+				nomesOrd += nomes+" | ";
+			}
+			
 		}
 		return nomesOrd;
 	}
 	
 	// metodos para produtos
-	public void cadastraProdutoParaFornecedor(String nomeForncedor, String nomeProduto, String descricaoProduto, double precoProduto) {
+	public void adicionaProduto(String nomeForncedor, String nomeProduto, String descricaoProduto, double precoProduto) {
 		if(!fornecedores.containsKey(nomeForncedor)) {
 			throw new IllegalArgumentException("Erro no cadastro de produto: fornecedor nao existe.");
 		}
@@ -186,24 +199,24 @@ public class SAGA {
 		fornecedores.get(nomeForncedor).cadastraProduto(nomeProduto, descricaoProduto, precoProduto);
 	}
 	
-	public String exibeProdutoDoFornecedor(String nomeFornecedor, String nomeProduto, String descricaoProduto) {
-		if(nomeProduto == null || nomeProduto == "") {
+	public String exibeProduto(String nome, String descricao, String fornecedor) {
+		if(nome == null || nome == "") {
 			throw new IllegalArgumentException("Erro na exibicao de produto: nome nao pode ser vazio ou nulo.");
 		}
-		if(!fornecedores.containsKey(nomeFornecedor)) {
+		if(!fornecedores.containsKey(fornecedor)) {
 			throw new IllegalArgumentException("Erro na exibicao de produto: fornecedor nao existe.");
 		}
-		if(nomeFornecedor == null || nomeFornecedor == "") {
+		if(fornecedor == null || fornecedor == "") {
 			throw new IllegalArgumentException("Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo.");
 		}
-		if(descricaoProduto == null || descricaoProduto == "") {
+		if(descricao == null || descricao == "") {
 			throw new IllegalArgumentException("Erro na exibicao de produto: descricao nao pode ser vazia ou nula.");
 		}
-		if(!fornecedores.get(nomeFornecedor).existeProduto(nomeProduto, descricaoProduto)) {
+		if(!fornecedores.get(fornecedor).existeProduto(nome, descricao)) {
 			throw new IllegalArgumentException("Erro na exibicao de produto: produto nao existe.");
 		}
 		
-		return fornecedores.get(nomeFornecedor).exibeProduto(nomeProduto, descricaoProduto);
+		return fornecedores.get(fornecedor).exibeProduto(nome, descricao);
 	}
 	
 	public String exibeTodosProdutosDoFornecedor(String nomeFornecedor) {
@@ -216,11 +229,11 @@ public class SAGA {
 		return fornecedores.get(nomeFornecedor).exibeTodosProdutos();
 	}
 	
-	public void editaProduto (String nomeFornecedor, String nome, String descricao, double preco) {
-		if(!fornecedores.containsKey(nomeFornecedor)) {
+	public void editaProduto (String nome, String descricao, String fornecedor, double novoPreco) {
+		if(!fornecedores.containsKey(fornecedor)) {
 			throw new IllegalArgumentException("Erro na edicao de produto: fornecedor nao existe.");
 		}
-		if(preco< 0) {
+		if(novoPreco< 0) {
 			throw new IllegalArgumentException("Erro na edicao de produto: preco invalido.");
 		}
 		if(descricao == null || descricao == "") {
@@ -229,18 +242,18 @@ public class SAGA {
 		if(nome == null || nome == "") {
 			throw new IllegalArgumentException("Erro na edicao de produto: nome nao pode ser vazio ou nulo.");
 		}
-		if(nomeFornecedor == null || nomeFornecedor == "") {
+		if(fornecedor == null || fornecedor == "") {
 			throw new IllegalArgumentException("Erro na edicao de produto: fornecedor nao pode ser vazio ou nulo.");
 		}
 		
-		fornecedores.get(nomeFornecedor).editaProduto(nome, descricao, preco);
+		fornecedores.get(fornecedor).editaProduto(nome, descricao, novoPreco);
 	}
 	
-	public void removeProduto(String nomeFornecedor, String nome, String descricao) {
-		if(!fornecedores.get(nomeFornecedor).existeProduto(nome, descricao)) {
+	public void removeProduto(String nome, String descricao, String fornecedor) {
+		if(!fornecedores.get(fornecedor).existeProduto(nome, descricao)) {
 			throw new IllegalArgumentException("Erro na remocao de produto: produto nao existe.");
 		}
-		if(nomeFornecedor == null || nomeFornecedor == "") {
+		if(fornecedor == null || fornecedor == "") {
 			throw new IllegalArgumentException("Erro na remocao de produto: fornecedor nao pode ser vazio ou nulo.");
 		}
 		if(descricao == null || descricao == "") {
@@ -249,13 +262,12 @@ public class SAGA {
 		if(nome == null || nome == "") {
 			throw new IllegalArgumentException("Erro na remocao de produto: nome nao pode ser vazio ou nulo.");
 		}
-		if(!fornecedores.containsKey(nomeFornecedor)) {
+		if(!fornecedores.containsKey(fornecedor)) {
 			throw new IllegalArgumentException("Erro na remocao de produto: fornecedor nao existe.");
 		}
 		
-		fornecedores.get(nomeFornecedor).removeProduto(nome, descricao);
+		fornecedores.get(fornecedor).removeProduto(nome, descricao);
 	}
-	
 	
 }
 

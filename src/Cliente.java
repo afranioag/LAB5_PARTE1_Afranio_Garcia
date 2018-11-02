@@ -5,9 +5,9 @@ public class Cliente implements Comparable<Cliente>{
 	private String nome;
 	private String email;
 	
-	public Cliente(String nome, String cPF, String localTrabalho, String email) {
+	public Cliente( String cpf, String nome, String localTrabalho, String email) {
 		this.nome = nome;
-		this.CPF = cPF;
+		this.CPF = cpf;
 		this.localTrabalho = localTrabalho;
 		this.email = email;
 	}

@@ -77,11 +77,16 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	}
 	
 	public String exibeTodosProdutos() {
-		
+		int contador = 0;
 		String todosProdutos = "";
 		Collections.sort(produtos);
 		for(Produto produto: produtos) {
-			todosProdutos += produto.toString()+" | ";
+			contador += 1;
+			if (contador == produtos.size()) {
+				todosProdutos += produto.toString();
+			}else {
+				todosProdutos += produto.toString()+" | ";
+			}
 		}
 		return todosProdutos;
 	}
