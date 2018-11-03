@@ -81,7 +81,8 @@ public class Cliente implements Comparable<Cliente>{
 	}
 
 	/**
-	 * 
+	 * Exibe a representação do cliente. 
+	 * NOME - LOCALDETRABALHO - EMAIL
 	 */
 	@Override
 	public String toString() {

@@ -1,3 +1,9 @@
+/**
+ * Representação de uma fachada onde será rodado o sistema saga,
+ * ele apenas instancia e inicia o sistema.
+ * Chamando todos os seus metodos de forma simples
+ */
+
 import easyaccept.EasyAccept;
 
 public class Facade {
@@ -74,28 +80,3 @@ public class Facade {
 			saga.removeProduto(nome, descricao, fornecedor);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
