@@ -407,6 +407,7 @@ public class SAGA {
 	}
 	
 	public void adicionaCombo(String fornecedor, String nome, String descricao, double fator, String produtos) {
+<<<<<<< HEAD
 		if(fornecedor == null || fornecedor.equals("")) {
 			throw new IllegalArgumentException("Erro no cadastro de combo: fornecedor nao pode ser vazio ou nulo.");
 		}
@@ -443,6 +444,9 @@ public class SAGA {
 		
 		fornecedores.get(fornecedor).cadastraCombo(nome, descricao, fator, produtos);
 		
+=======
+		fornecedores.get(fornecedor).cadastraCombo(nome, descricao, fator, produtos);
+>>>>>>> 38677b372d94868a4e77df820f026932c0392906
 	}
 	
 }

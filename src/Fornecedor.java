@@ -152,6 +152,7 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		return todosProdutos;
 	}
 	
+<<<<<<< HEAD
 	// metodos para o combo
 	public void cadastraCombo(String nome, String descricao, double fator, String produtos) {
 		String[] produtosCombo = produtos.split(", ");
@@ -192,6 +193,12 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	}
 	
 	
+=======
+	public void cadastraCombo(String nome, String descricao, double fator, String produtos) {
+		String[] produtosCombo = produtos.split(",");
+	}
+	
+>>>>>>> 38677b372d94868a4e77df820f026932c0392906
 	
 	
 	public String getNome() {
