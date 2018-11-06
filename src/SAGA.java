@@ -406,4 +406,8 @@ public class SAGA {
 		fornecedores.get(fornecedor).removeProduto(nome, descricao);
 	}
 	
+	public void adicionaCombo(String fornecedor, String nome, String descricao, double fator, String produtos) {
+		fornecedores.get(fornecedor).cadastraCombo(nome, descricao, fator, produtos);
+	}
+	
 }

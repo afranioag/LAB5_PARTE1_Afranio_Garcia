@@ -79,4 +79,8 @@ public class Facade {
 	public void removeProduto(String nome, String descricao, String fornecedor) {
 			saga.removeProduto(nome, descricao, fornecedor);
 	}
+	
+	public void adicionaCombo (String fornecedor, String nome, String descricao, double fator, String produtos) {
+		adicionaCombo(String fornecedor, String nome, String descricao, double fator, String produtos);
+	}
 }

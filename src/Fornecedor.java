@@ -12,7 +12,8 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	private String nome;
 	private String email;
 	private String telefone;
-	private List <Produto> produtos;
+	private List<Produto> produtos;
+	private List<Combo> combo;
 	
 	/**
 	 * Constroi o comerciante e inicializa a lista vazia para adicionar produtos
@@ -25,7 +26,8 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
-		this.produtos = new ArrayList();
+		this.produtos = new ArrayList<Produto>();
+		this.combo = new 	ArrayList<Combo>();
 	}
 	
 	/**
@@ -136,6 +138,12 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		}
 		return todosProdutos;
 	}
+	
+	public void cadastraCombo(String nome, String descricao, double fator, String produtos) {
+		String[] produtosCombo = produtos.split(",");
+	}
+	
+	
 	
 	public String getNome() {
 		return nome;
