@@ -243,17 +243,17 @@ public class SAGA {
 	 *  Cria um produto que será adicionado a uma lista de produtos de um determinado fornecedor.
 	 *  É preciso passar o nome do fornecedor, um nome e descrilçao para o produto e um preço.
 	 *  Em caso de algum erro nos parametros será lançada uma exceção para o dado erro.
-	 * @param forncedor o fornecedor que receberá o produto
+	 * @param fornecedor o fornecedor que receberá o produto
 	 * @param nome o nome do produto
 	 * @param descricao a descrição do produto
 	 * @param preco o pŕeço do produto
 	 */
-	public void adicionaProduto(String forncedor, String nome, String descricao, double preco) {
-		if(forncedor == null || forncedor.equals("")) {
+	public void adicionaProduto(String fornecedor, String nome, String descricao, double preco) {
+		if(fornecedor == null || fornecedor.equals("")) {
 			throw new IllegalArgumentException("Erro no cadastro de produto: fornecedor nao pode ser vazio ou nulo.");
 		}
 		
-		if(!fornecedores.containsKey(forncedor)) {
+		if(!fornecedores.containsKey(fornecedor)) {
 			throw new IllegalArgumentException("Erro no cadastro de produto: fornecedor nao existe.");
 		}
 		if(nome == null || nome.equals("")) {
@@ -266,11 +266,11 @@ public class SAGA {
 		if(preco < 0) {
 			throw new IllegalArgumentException("Erro no cadastro de produto: preco invalido.");
 		}
-		if(fornecedores.get(forncedor).existeProduto(nome, descricao)) {
+		if(fornecedores.get(fornecedor).existeProduto(nome, descricao) > -1) {
 			throw new IllegalArgumentException("Erro no cadastro de produto: produto ja existe.");
 		}
 		
-		fornecedores.get(forncedor).cadastraProduto(nome, descricao, preco);
+		fornecedores.get(fornecedor).cadastraProduto(nome, descricao, preco);
 	}
 	
 	/**
@@ -298,7 +298,7 @@ public class SAGA {
 		if(descricao == null || descricao.equals("")) {
 			throw new IllegalArgumentException("Erro na exibicao de produto: descricao nao pode ser vazia ou nula.");
 		}
-		if(!fornecedores.get(fornecedor).existeProduto(nome, descricao)) {
+		if(fornecedores.get(fornecedor).existeProduto(nome, descricao) == -1) {
 			throw new IllegalArgumentException("Erro na exibicao de produto: produto nao existe.");
 		}
 		
@@ -399,11 +399,80 @@ public class SAGA {
 		if(!fornecedores.containsKey(fornecedor)) {
 			throw new IllegalArgumentException("Erro na remocao de produto: fornecedor nao existe.");
 		}
-		if(!fornecedores.get(fornecedor).existeProduto(nome, descricao)) {
+		if(fornecedores.get(fornecedor).existeProduto(nome, descricao) == -1) {
 			throw new IllegalArgumentException("Erro na remocao de produto: produto nao existe.");
 		}
 		
 		fornecedores.get(fornecedor).removeProduto(nome, descricao);
 	}
 	
+	public void adicionaCombo(String fornecedor, String nome, String descricao, double fator, String produtos) {
+		if(fornecedor == null || fornecedor.equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: fornecedor nao pode ser vazio ou nulo.");
+		}
+		
+		if(!fornecedores.containsKey(fornecedor)) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: fornecedor nao existe.");
+		}		
+		if(nome == null || nome.equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: nome nao pode ser vazio ou nulo.");
+		}
+		if(descricao == null || descricao.equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: descricao nao pode ser vazia ou nula.");
+		}
+		
+		if(produtos.equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: combo deve ter produtos.");
+		}
+		
+		if(fornecedores.get(fornecedor).existeProduto(nome, descricao) > -1) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: combo ja existe.");
+		}
+		
+		if (fornecedores.get(fornecedor).existeProduto(produtos) == -1) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: produto nao existe.");
+		}
+		
+		if(fator < 0 || fator > 1) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: fator invalido.");
+		}
+		
+		if(fornecedores.get(fornecedor).existeCombo(nome, produtos) == 1) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: um combo n�o pode possuir combos na lista de produtos.");
+		}
+		
+		fornecedores.get(fornecedor).cadastraCombo(nome, descricao, fator, produtos);
+		
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
