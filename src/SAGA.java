@@ -338,7 +338,6 @@ public class SAGA {
 				cont += 1;
 				continue;
 			}
-			
 			if (cont == fornecedoresOrdenados.size()-1) {
 				aux += this.exibeProdutosFornecedor(nova);
 			}
@@ -410,7 +409,6 @@ public class SAGA {
 		if(fornecedor == null || fornecedor.equals("")) {
 			throw new IllegalArgumentException("Erro no cadastro de combo: fornecedor nao pode ser vazio ou nulo.");
 		}
-		
 		if(!fornecedores.containsKey(fornecedor)) {
 			throw new IllegalArgumentException("Erro no cadastro de combo: fornecedor nao existe.");
 		}		
@@ -420,31 +418,24 @@ public class SAGA {
 		if(descricao == null || descricao.equals("")) {
 			throw new IllegalArgumentException("Erro no cadastro de combo: descricao nao pode ser vazia ou nula.");
 		}
-		
 		if(produtos.equals("")) {
 			throw new IllegalArgumentException("Erro no cadastro de combo: combo deve ter produtos.");
 		}
-		
 		if(fornecedores.get(fornecedor).existeProduto(nome, descricao) > -1) {
 			throw new IllegalArgumentException("Erro no cadastro de combo: combo ja existe.");
 		}
-		
+		if(fator < 0 || fator >= 1) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: fator invalido.");
+		}
 		if (fornecedores.get(fornecedor).existeProduto(produtos) == -1) {
 			throw new IllegalArgumentException("Erro no cadastro de combo: produto nao existe.");
 		}
-		
-		if(fator < 0 || fator > 1) {
-			throw new IllegalArgumentException("Erro no cadastro de combo: fator invalido.");
-		}
-		
 		if(fornecedores.get(fornecedor).existeCombo(nome, produtos) == 1) {
 			throw new IllegalArgumentException("Erro no cadastro de combo: um combo n�o pode possuir combos na lista de produtos.");
 		}
 		
 		fornecedores.get(fornecedor).cadastraCombo(nome, descricao, fator, produtos);
-		
 	}
-	
 }
 
 

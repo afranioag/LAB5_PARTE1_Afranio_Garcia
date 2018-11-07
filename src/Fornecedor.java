@@ -104,7 +104,6 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	 * @return retorna uma stringo contendo as informações do produto
 	 */
 	public String exibeProduto(String nome, String descricao) {
-		//int indice = -1;
 		int indice = this.existeProduto(nome, descricao);
 		
 		if (indice < 0 ) {
@@ -141,6 +140,7 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		int contador = 0;
 		String todosProdutos = "";
 		Collections.sort(produtos);
+		
 		for(Produto produto: produtos) {
 			contador += 1;
 			if (contador == produtos.size()) {
@@ -163,21 +163,19 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		if(this.existeProduto(prod1[0], prod1[1]) > -1){
 			preco += this.produtos.get(this.existeProduto(prod1[0], prod1[1])).getPreco();
 		}
-		if(this.existeProduto(prod2[0], prod1[1]) > -1){
-			preco += this.produtos.get(this.existeProduto(prod1[0], prod1[1])).getPreco();
+		if(this.existeProduto(prod2[0], prod2[1]) > -1){
+			preco += this.produtos.get(this.existeProduto(prod2[0], prod2[1])).getPreco();
 		}
 		
-		preco += preco * (1 - fator);
-		
-		this.combo.add(new Combo(nome, descricao, preco));
-		this.produtos.add(new Combo(nome, descricao, preco));	
+		this.produtos.add(new Combo(nome, descricao, (preco * (1 - fator))));
+		this.combo.add(new Combo(nome, descricao, (preco * (1 - fator))));
 	}
 	
 	public int existeCombo(String fornecedor, String produtos) {
 		String[] produtosCombo = produtos.split(", ");
 		
-		String[] prod1 =produtosCombo[0].split(" - ");
-		String[] prod2 =produtosCombo[1].split(" - ");
+		String[] prod1 = produtosCombo[0].split(" - ");
+		String[] prod2 = produtosCombo[1].split(" - ");
 		
 		for(Combo comb: combo) {
 			if(comb.getNome().equals(prod1[0]) && comb.getDescricao().equals(prod1[1])){
