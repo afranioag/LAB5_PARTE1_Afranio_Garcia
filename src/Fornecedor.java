@@ -103,10 +103,6 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	 */
 	public String exibeProduto(String nome, String descricao) {
 		int indice = this.existeProduto(nome, descricao);
-		
-		if (indice < 0 ) {
-			throw new ArrayIndexOutOfBoundsException("Produto não cadastrado");
-		}
 		return produtos.get(indice).toString();
 	}
 	
@@ -192,6 +188,10 @@ public class Fornecedor implements Comparable<Fornecedor>{
 			}
 		}
 		return false;
+	}
+	
+	public void editaCombo(String nome, String descricao, String fornecedor, double novoFator) {
+		produtos.get(this.existeProduto(nome, descricao)).editaPreco(novoFator);
 	}
 	
 	

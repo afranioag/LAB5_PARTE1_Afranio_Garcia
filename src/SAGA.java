@@ -438,6 +438,25 @@ public class SAGA {
 	}
 	
 	public void editaCombo(String nome, String descricao, String fornecedor, double novoFator) {
+		if(fornecedor == null || fornecedor.equals("")) {
+			throw new IllegalArgumentException("Erro na edicao de combo: fornecedor nao pode ser vazio ou nulo.");
+		}
+		if(!fornecedores.containsKey(fornecedor)) {
+			throw new IllegalArgumentException("Erro na edicao de combo: fornecedor nao existe.");
+		}		
+		if(nome == null || nome.equals("")) {
+			throw new IllegalArgumentException("Erro na edicao de combo: nome nao pode ser vazio ou nulo.");
+		}
+		if(descricao == null || descricao.equals("")) {
+			throw new IllegalArgumentException("Erro na edicao de combo: descricao nao pode ser vazia ou nula.");
+		}
+		if(novoFator <= 0 || novoFator >= 1) {
+			throw new IllegalArgumentException("Erro na edicao de combo: fator invalido.");
+		}
+		if (fornecedores.get(fornecedor).existeProduto(nome, descricao) == -1) {
+			throw new IllegalArgumentException("Erro na edicao de combo: produto nao existe.");
+		}
+		
 		fornecedores.get(fornecedor).editaPreco(nome, descricao, novoFator);
 	}
 }

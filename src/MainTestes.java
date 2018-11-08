@@ -8,15 +8,8 @@
 //		s.adicionaCombo("Seu Olavo", "X-burguer + suco", "X-burguer com suco de maracuja", 0.20, "X-burguer - Hamburguer de carne com queijo e calabresa, Suco - Suco de maracuja (copo)");
 //		
 //		System.out.println(s.exibeProdutos());
-//		s.editaCombo("X-burguer + suco", "X-burguer com suco de maracuja", "Seu Olavo", 0.8);
+//		s.editaCombo("X-burguer + suco", "X-burguer com suco de maracuja", "Seu Olavo", 0.3);
 //		System.out.println(s.exibeProdutos());
-////		try{
-////			s.adicionaCombo("Seu Olavo", "X-burguer + suco", "X-burguer com suco de maracuja", 0.3, "X-burguer - Hamburguer de carne com queijo e calabresa, Suco - Suco de maracuja (copo)");
-////		}catch (Exception e) {
-////			System.out.println(e.getMessage());
-////		}
-////	
-////		System.out.println(s.exibeProdutos());
 //		
 //		
 //	}

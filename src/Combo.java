@@ -13,9 +13,10 @@ public class Combo extends Produto{
 		this.fator = fator;
 	}
 	
+	@Override
 	public void editaPreco(double fator) {
-		double novo = super.getPreco() / this.fator;
-		novo *= fator;
+		double novo = super.getPreco() / (1 - this.fator);
+		novo *= (1-fator);
 		this.setFator(fator);
 		super.setPreco(novo);
 	}
@@ -23,6 +24,15 @@ public class Combo extends Produto{
 	@Override
 	public int compareTo (Produto c) {
 		return this.getNome().compareTo(c.getNome());
+	}
+	
+	/**
+	 * Retorna uma representação do produto, com nome, descrição e preco.
+	 * 
+	 */
+	@Override
+	public String toString() {
+		return this.nome+" - "+this.descricao+" - R$"+String.format("%.2f", this.preco);
 	}
 	
 }

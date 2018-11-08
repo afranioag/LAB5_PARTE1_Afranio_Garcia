@@ -14,35 +14,9 @@ public class Simples extends Produto {
 	 * @param preco o preco de mercado
 	 */
 	public Simples(String nome, String descricao, double preco) {
-//		this.nome = nome;
-//		this.descricao = descricao;
-//		this.preco = preco;
 		super(nome, descricao, preco);
 	}
 
-//	public String getNome() {
-//		return nome;
-//	}
-//
-//	public void setNome(String nome) {
-//		this.nome = nome;
-//	}
-//
-//	public String getDescricao() {
-//		return descricao;
-//	}
-//
-//	public void setDescricao(String descricao) {
-//		this.descricao = descricao;
-//	}
-//
-//	public double getPreco() {
-//		return preco;
-//	}
-//
-//	public void setPreco(double preco) {
-//		this.preco = preco;
-//	}
 
 	@Override
 	public int hashCode() {
@@ -83,9 +57,6 @@ public class Simples extends Produto {
 	 * @param descricao a descrição do produto
 	 * @return retorna uma string com a representação do produto. NOME - DESCRIÇÃO - PREÇO
 	 */
-	public String exibeProduto(String nome, String descricao) {
-			return toString();
-	}
 	
 	@Override
 	public int compareTo(Produto p) {
@@ -98,7 +69,6 @@ public class Simples extends Produto {
 	 */
 	@Override
 	public String toString() {
-		
 		return this.nome+" - "+this.descricao+" - R$"+String.format("%.2f", this.preco);
 	}
 
