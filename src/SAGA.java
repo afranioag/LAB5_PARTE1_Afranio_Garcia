@@ -436,6 +436,10 @@ public class SAGA {
 		
 		fornecedores.get(fornecedor).cadastraCombo(nome, descricao, fator, produtos);
 	}
+	
+	public void editaCombo(String nome, String descricao, String fornecedor, double novoFator) {
+		fornecedores.get(fornecedor).editaCombo(nome, descricao, novoFator);
+	}
 }
 
 

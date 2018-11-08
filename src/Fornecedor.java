@@ -167,8 +167,10 @@ public class Fornecedor implements Comparable<Fornecedor>{
 			preco += this.produtos.get(this.existeProduto(prod2[0], prod2[1])).getPreco();
 		}
 		
-		this.produtos.add(new Combo(nome, descricao, (preco * (1 - fator))));
-		this.combo.add(new Combo(nome, descricao, (preco * (1 - fator))));
+		//Combo novoCombo = new Combo(nome, descricao, (preco * (1 - fator)));
+		Combo novoCombo = new Combo(nome, descricao, preco, fator);
+		this.produtos.add(novoCombo);
+		this.combo.add(novoCombo);
 	}
 	
 	public int existeCombo(String fornecedor, String produtos) {
@@ -184,9 +186,12 @@ public class Fornecedor implements Comparable<Fornecedor>{
 			if(comb.getNome().equals(prod2[0]) && comb.getDescricao().equals(prod2[1])) {
 				return 1;
 			}
-			
 		}
 		return -1;
+	}
+
+	public void editaCombo(String nome, String descricao, double novoFator) {
+		combo.get(this.existeProduto(nome, descricao)).editaPreco(novoFator);
 	}
 	
 	

@@ -83,4 +83,10 @@ public class Facade {
 	public void adicionaCombo (String fornecedor, String nome, String descricao, double fator, String produtos) {
 		saga.adicionaCombo(fornecedor, nome, descricao, fator, produtos);
 	}
+	// falta concluir esse metodo
+	public void editaCombo(String nome, String descricao, String fornecedor, double novoFator) {
+		saga.editaCombo(nome, descricao, fornecedor, novoFator);
+	}
+	
+	
 }
