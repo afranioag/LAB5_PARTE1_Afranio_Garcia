@@ -20,6 +20,9 @@ public class Combo extends Produto{
 		super.setPreco(novo);
 	}
 	
-	
+	@Override
+	public int compareTo (Produto c) {
+		return this.getNome().compareTo(c.getNome());
+	}
 	
 }

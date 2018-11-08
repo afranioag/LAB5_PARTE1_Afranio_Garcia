@@ -2,7 +2,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 class ProdutoTeste {
-	public Produto prod = new Produto("Batata", "Batata palha", 6.5);
+	public Simples prod = new Simples("Batata", "Batata palha", 6.5);
 
 	@Test
 	public void testExibeProduto() {

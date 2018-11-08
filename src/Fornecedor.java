@@ -13,7 +13,6 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	private String email;
 	private String telefone;
 	private List<Produto> produtos;
-	private List<Combo> combo;
 	
 	/**
 	 * Constroi o comerciante e inicializa a lista vazia para adicionar produtos
@@ -27,7 +26,6 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		this.email = email;
 		this.telefone = telefone;
 		this.produtos = new ArrayList<Produto>();
-		this.combo = new 	ArrayList<Combo>();
 	}
 	
 	/**
@@ -37,7 +35,7 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	 * @param preco o preço de mercado do produto
 	 */
 	public void cadastraProduto(String nome, String descricao, double preco) {
-		produtos.add(new Produto(nome, descricao, preco));
+		produtos.add(new Simples(nome, descricao, preco));
 	}
 	
 	/**
@@ -56,8 +54,8 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		if(indice < 0) {
 			throw new ArrayIndexOutOfBoundsException("Produto nao cadastrado");
 		}
-		produtos.get(indice).setNome(nome);
-		produtos.get(indice).setDescricao(descricao);
+		//produtos.get(indice).setNome(nome);
+		//produtos.get(indice).setDescricao(descricao);
 		produtos.get(indice).setPreco(preco);
 	}
 	
@@ -167,34 +165,34 @@ public class Fornecedor implements Comparable<Fornecedor>{
 			preco += this.produtos.get(this.existeProduto(prod2[0], prod2[1])).getPreco();
 		}
 		
-		//Combo novoCombo = new Combo(nome, descricao, (preco * (1 - fator)));
-		Combo novoCombo = new Combo(nome, descricao, preco, fator);
-		this.produtos.add(novoCombo);
-		this.combo.add(novoCombo);
-	}
-	
-	public int existeCombo(String fornecedor, String produtos) {
-		String[] produtosCombo = produtos.split(", ");
-		
-		String[] prod1 = produtosCombo[0].split(" - ");
-		String[] prod2 = produtosCombo[1].split(" - ");
-		
-		for(Combo comb: combo) {
-			if(comb.getNome().equals(prod1[0]) && comb.getDescricao().equals(prod1[1])){
-				return 1;
-			}
-			if(comb.getNome().equals(prod2[0]) && comb.getDescricao().equals(prod2[1])) {
-				return 1;
-			}
-		}
-		return -1;
+		this.produtos.add(new Combo(nome, descricao, preco, fator));
 	}
 
-	public void editaCombo(String nome, String descricao, double novoFator) {
-		combo.get(this.existeProduto(nome, descricao)).editaPreco(novoFator);
+	public void editaPreco(String nome, String descricao, double novoFator) {
+		produtos.get(this.existeProduto(nome, descricao)).editaPreco(novoFator);
 	}
 	
-	
+	public boolean encontraProduto(String produto) {
+		String[] produtosSeparados = produto.split(", ");
+		
+		String[] prod1 = produtosSeparados[0].split(" - ");
+		String[] prod2 = produtosSeparados[1].split(" - ");
+		
+		
+		for(Produto prod: produtos) {
+			if(prod1[0].equals(prod.getNome()) && prod1[1].equals(prod.getDescricao())) {
+				if(prod instanceof Combo) {
+					return true;
+				}
+			}
+			if(prod2[0].equals(prod.getNome()) && prod2[1].equals(prod.getDescricao())) {
+				if(prod instanceof Combo) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	
 	
 	public String getNome() {

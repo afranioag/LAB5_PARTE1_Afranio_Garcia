@@ -430,15 +430,15 @@ public class SAGA {
 		if (fornecedores.get(fornecedor).existeProduto(produtos) == -1) {
 			throw new IllegalArgumentException("Erro no cadastro de combo: produto nao existe.");
 		}
-		if(fornecedores.get(fornecedor).existeCombo(nome, produtos) == 1) {
-			throw new IllegalArgumentException("Erro no cadastro de combo: um combo n�o pode possuir combos na lista de produtos.");
+		if(fornecedores.get(fornecedor).encontraProduto(produtos)) {
+			throw new IllegalArgumentException("Erro no cadastro de combo: um combo nao pode possuir combos na lista de produtos.");
 		}
 		
 		fornecedores.get(fornecedor).cadastraCombo(nome, descricao, fator, produtos);
 	}
 	
 	public void editaCombo(String nome, String descricao, String fornecedor, double novoFator) {
-		fornecedores.get(fornecedor).editaCombo(nome, descricao, novoFator);
+		fornecedores.get(fornecedor).editaPreco(nome, descricao, novoFator);
 	}
 }
 
