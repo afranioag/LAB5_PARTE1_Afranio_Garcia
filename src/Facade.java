@@ -92,7 +92,7 @@ public class Facade {
 	public void adicionaCompra(String cpf, String nome, String data, String nome_prod, String desc_prod){
 		saga.adicionaCompra(cpf, nome, data, nome_prod, desc_prod);
 	}
-	// implemente
+
 	public String getDebito(String cpf, String fornecedor) {
 		return saga.getDebito(cpf, fornecedor);
 	}
@@ -101,8 +101,8 @@ public class Facade {
 		return saga.exibeContas(cpf, fornecedor);
 	}
 	
-	public String exibeContas (String cpf) {
-		return saga.exibeContas(cpf);
+	public String exibeConta (String cpf) {
+		return saga.exibeConta(cpf);
 	}
 }
 

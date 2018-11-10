@@ -34,8 +34,13 @@ public class Conta {
 		return fornecedor;
 	}
 	
-	
-	
+//	public boolean existeContaFornecedor(String fornecedor) {
+//		if(compras.contains(fornecedor)) {
+//			return true;
+//		}
+//		return false;
+//	}
+//	
 	
 	public String toString() {
 		

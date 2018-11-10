@@ -465,6 +465,12 @@ public class SAGA {
 		if(cpf.length() != 11) {
 			throw new IllegalArgumentException("Erro ao cadastrar compra: cpf invalido.");
 		}
+		if(nome_prod.equals(null) || nome_prod.equals("")) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: nome do produto nao pode ser vazio ou nulo.");
+		}
+		if(desc_prod.equals(null) || desc_prod.equals("")) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: descricao do produto nao pode ser vazia ou nula.");
+		}
 		if(!clientes.containsKey(cpf)) {
 			throw new IllegalArgumentException("Erro ao cadastrar compra: cliente nao existe.");
 		}
@@ -478,17 +484,11 @@ public class SAGA {
 		if(nome.equals(null) || nome.equals("")) {
 			throw new IllegalArgumentException("Erro ao cadastrar compra: fornecedor nao pode ser vazio ou nulo.");
 		}
+	
 		if(!fornecedores.containsKey(nome)) {
 			throw new IllegalArgumentException("Erro ao cadastrar compra: fornecedor nao existe.");
 		}
 		
-	
-		if(nome_prod.equals(null) || nome_prod.equals("")) {
-			throw new IllegalArgumentException("Erro ao cadastrar compra: nome do produto nao pode ser vazio ou nulo.");
-		}
-		if(desc_prod.equals(null) || desc_prod.equals("")) {
-			throw new IllegalArgumentException("Erro ao cadastrar compra: descricao do produto nao pode ser vazia ou nula");
-		}
 		if(fornecedores.get(nome).existeProduto(nome_prod, desc_prod) < 0) {
 			throw new IllegalArgumentException("Erro ao cadastrar compra: produto nao existe.");
 		}
@@ -511,10 +511,9 @@ public class SAGA {
 			throw new IllegalArgumentException("Erro ao recuperar debito: fornecedor nao existe.");
 		}
 	
-		if(clientes.get(cpf).getDebito(fornecedor) == null) {
+		if(!clientes.get(cpf).debitoFornecedor(fornecedor)) {
 			throw new IllegalArgumentException("Erro ao recuperar debito: cliente nao tem debito com fornecedor.");
 		}
-
 	
 		return clientes.get(cpf).getDebito(fornecedor);
 	}
@@ -538,20 +537,20 @@ public class SAGA {
 			throw new IllegalArgumentException("Erro ao exibir conta do cliente: cliente nao tem nenhuma conta com o fornecedor.");
 		}
 		
-		return clientes.get(cpf).exibeConta(fornecedor);
+		return clientes.get(cpf).exibeContas(fornecedor);
 	}
 	
-	public String exibeContas (String cpf) {
+	public String exibeConta (String cpf) {
 		if(cpf.length() != 11) {
 			throw new IllegalArgumentException("Erro ao exibir contas do cliente: cpf invalido.");
 		}
 		if(!clientes.containsKey(cpf)) {
 			throw new IllegalArgumentException("Erro ao exibir contas do cliente: cliente nao existe.");
 		}
-		if(!clientes.get(cpf).exiteConta()) {
+		if(!clientes.get(cpf).existeConta()) {
 			throw new IllegalArgumentException("Erro ao exibir contas do cliente: cliente nao tem nenhuma conta.");
 		}
-		return clientes.get(cpf).exibeContas();
+		return clientes.get(cpf).exibeConta();
 	}
 }
 

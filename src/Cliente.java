@@ -6,15 +6,19 @@
  *
  */
 
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class Cliente implements Comparable<Cliente>{
 	private String CPF;
 	private String localTrabalho;
 	private String nome;
 	private String email;
-	private List<Conta> contas;
+	private HashMap<String, Conta> contas;
 	
 	/**
 	 * constroi o cliente.
@@ -29,49 +33,48 @@ public class Cliente implements Comparable<Cliente>{
 		this.CPF = cpf;
 		this.localTrabalho = localTrabalho;
 		this.email = email;
-		contas = new ArrayList<Conta>();
+		contas = new HashMap<>();
 	}
 	
 	public void adicionaCompra(String fornecedor, String data,  String produto, double preco){
-		if(!contas.contains(fornecedor)){
-			contas.add(new Conta(fornecedor));
+		if(!contas.containsKey(fornecedor)){
+			contas.put(fornecedor, new Conta(fornecedor));
 		}
-		
-		for(Conta conta: contas) {
-			if(conta.getFornecedor().equals(fornecedor)) {
-				conta.adicionaCompra(produto, data, preco);
-				break;
-			}
-		}
+		contas.get(fornecedor).adicionaCompra(produto, data, preco);
 	}
 	
-	public String exibeConta(String fornecedor) {	
-		for(Conta dados: contas) {
-			if(dados.getFornecedor().equals(fornecedor)) {
-				return "Cliente: " + this.nome+" | " + dados.toString();
+	public String exibeConta() {	
+		Set<String> fornecedores =  contas.keySet();
+		List<String> nomesFornecedores = new ArrayList<>();
+		
+		for(String chaves: fornecedores) {
+			nomesFornecedores.add(chaves);
+		}
+		Collections.sort(nomesFornecedores);
+		
+		String exibeConta = "Cliente: "+this.nome+" | ";
+		int conte = 1;
+		for(String chaves: nomesFornecedores) {
+			if (conte == nomesFornecedores.size()) {
+				exibeConta += contas.get(chaves).toString();
+			}else {
+				exibeConta += contas.get(chaves).toString()+" | ";
 			}
 		}
-		return null;
+		return exibeConta;
 	}
 	
-	public String exibeContas() {
-		String contasTotais = "";
-		
-		for(Conta cont: contas) {
-			contasTotais += cont.toString();
-		}
-		return contasTotais;
+	public String exibeContas(String fornecedor) {
+		return "Cliente: "+ this.nome +" | "+ contas.get(fornecedor).toString();
 	}
 	
 	public String getDebito(String fornecedor) {
-		for(Conta conta: contas) {
-			if(conta.getFornecedor().equals(fornecedor)) {
-				return String.format("%.2f", conta.getDebito()).replace(",", ".");
-			}
-		}
-		return null;
+				return String.format("%.2f", contas.get(fornecedor).getDebito()).replace(",", ".");
 	}
 	
+	public boolean debitoFornecedor(String fornecedor) {
+		return contas.containsKey(fornecedor);
+	}
 	
 	public boolean dataCerta(String data) {
 		String[] testaData = data.split("/");
@@ -117,7 +120,7 @@ public class Cliente implements Comparable<Cliente>{
 	}
 	
 	// rever isso
-	public boolean exiteConta() {
+	public boolean existeConta() {
 		if(contas.size() > 0) {
 			return true;
 		}

@@ -1,27 +1,27 @@
 //
 //public class MainTestes {
 //	public static void main(String[] args) {
-//		SAGA s = new SAGA();
-//		Fornecedor f = new Fornecedor("f1", "@", "012");
-//		f.cadastraProduto("p", "d", 10);
-//		Cliente c = new Cliente("12345678911", "a", "@", "ufcg");
-//		c.adicionaCompra("f1", "04/03/2018", "p", 12);
-//		
-//			System.out.println(c.getDebito("f1"));
-//		
+////		Conta c = new Conta("ze");
+////		c.adicionaCompra("pao", "10/10/2018", 2);
+////		c.adicionaCompra("presunto", "10/1/2017", 10);
+////		c.adicionaCompra("aveia", "1/11/2018", 7.5);
+////		System.out.println(c.toString());
+////		System.out.println(c.getDebito());
 //		
 //		
-//		s.adicionaFornecedor("Seu Olavo", "@gmail", "telefone");
-//		s.adicionaProduto("Seu Olavo", "Suco", "Suco de maracuja (copo)", 2.50);
-//		s.adicionaProduto("Seu Olavo", "X-burguer", "Hamburguer de carne com queijo e calabresa", 3.5);
+//		Cliente cli = new Cliente("1234678911", "afranio", "@gmail.com", "GOOGLE");
+//		cli.adicionaCompra("ze", "10/10/2018", "pao", 2);
+//		cli.adicionaCompra("joao", "24/10/2018", "presunto", 12);
+//		cli.adicionaCompra("ze", "2/9/2018", "sal", 0.89);
+//		cli.adicionaCompra("joao", "12/1/2018", "aveia", 10);
+//		cli.adicionaCompra("marco", "12/1/2018", "torta", 10);
+//		cli.adicionaCompra("marco", "12/1/2018", "salmao", 10);
+//	
 //		
-//		s.adicionaCliente("12345678911", "Afranio", "afranio.cet", "ufcg");
 //		
-//		s.adicionaCompra("12345678911", "Seu Olavo", "04/03/2019", "Suco", "Suco de maracuja (copo)");
-//		
-//		System.out.println(s.getDebito("12345678911", "Seu Olavo"));
-//		
-//		System.out.println(s.get("Seu Olavo"));
-//		
+//		System.out.println(cli.exibeConta("ze"));
+//		System.out.println(cli.exibeConta("joao"));
+//		System.out.println(cli.getDebito("marco"));
+//		System.out.println(cli.exibeContas());
 //	}
 //}
