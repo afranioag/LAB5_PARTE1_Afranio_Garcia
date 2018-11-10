@@ -8,7 +8,7 @@ import easyaccept.EasyAccept;
 
 public class Facade {
 	public static void main(String[] args) {
-		args = new String[] {"Facade", "easyaccept/use_case_1.txt","easyaccept/use_case_2.txt","easyaccept/use_case_3.txt", "easyaccept/use_case_4.txt"};
+		args = new String[] {"Facade", "easyaccept/use_case_1.txt","easyaccept/use_case_2.txt","easyaccept/use_case_3.txt", "easyaccept/use_case_4.txt", "easyaccept/use_case_5.txt"};
 		EasyAccept.main(args);
 	}
 	private SAGA saga;
@@ -89,4 +89,35 @@ public class Facade {
 	}
 	
 	
+	public void adicionaCompra(String cpf, String nome, String data, String nome_prod, String desc_prod){
+		saga.adicionaCompra(cpf, nome, data, nome_prod, desc_prod);
+	}
+	// implemente
+	public String getDebito(String cpf, String fornecedor) {
+		return saga.getDebito(cpf, fornecedor);
+	}
+	
+	public String exibeContas(String cpf, String fornecedor) {
+		return saga.exibeContas(cpf, fornecedor);
+	}
+	
+	public String exibeContas (String cpf) {
+		return saga.exibeContas(cpf);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

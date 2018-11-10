@@ -459,6 +459,100 @@ public class SAGA {
 		
 		fornecedores.get(fornecedor).editaPreco(nome, descricao, novoFator);
 	}
+	
+	
+	public void adicionaCompra(String cpf, String nome, String data, String nome_prod, String desc_prod) {
+		if(cpf.length() != 11) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: cpf invalido.");
+		}
+		if(!clientes.containsKey(cpf)) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: cliente nao existe.");
+		}
+		if(data.equals(null) || data.equals("")) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: data nao pode ser vazia ou nula.");
+		}
+		if(!clientes.get(cpf).dataCerta(data)) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: data invalida.");
+		}
+	
+		if(nome.equals(null) || nome.equals("")) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: fornecedor nao pode ser vazio ou nulo.");
+		}
+		if(!fornecedores.containsKey(nome)) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: fornecedor nao existe.");
+		}
+		
+	
+		if(nome_prod.equals(null) || nome_prod.equals("")) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: nome do produto nao pode ser vazio ou nulo.");
+		}
+		if(desc_prod.equals(null) || desc_prod.equals("")) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: descricao do produto nao pode ser vazia ou nula");
+		}
+		if(fornecedores.get(nome).existeProduto(nome_prod, desc_prod) < 0) {
+			throw new IllegalArgumentException("Erro ao cadastrar compra: produto nao existe.");
+		}
+	
+		clientes.get(cpf).adicionaCompra(nome, data, nome_prod, fornecedores.get(nome).precoProduto(nome_prod, desc_prod));
+	}
+	
+	public String getDebito(String cpf, String fornecedor) {
+		if(fornecedor.equals(null) || fornecedor.equals("")) {
+			throw new IllegalArgumentException("Erro ao recuperar debito: fornecedor nao pode ser vazio ou nulo.");
+		}
+	
+		if(cpf.length() != 11) {
+			throw new IllegalArgumentException("Erro ao recuperar debito: cpf invalido.");
+		}
+		if(!clientes.containsKey(cpf)) {
+			throw new IllegalArgumentException("Erro ao recuperar debito: cliente nao existe.");
+		}
+		if(!fornecedores.containsKey(fornecedor)) {
+			throw new IllegalArgumentException("Erro ao recuperar debito: fornecedor nao existe.");
+		}
+	
+		if(clientes.get(cpf).getDebito(fornecedor) == null) {
+			throw new IllegalArgumentException("Erro ao recuperar debito: cliente nao tem debito com fornecedor.");
+		}
+
+	
+		return clientes.get(cpf).getDebito(fornecedor);
+	}
+	
+	public String exibeContas(String cpf, String fornecedor) {
+		if(fornecedor.equals(null) || fornecedor.equals("")) {
+			throw new IllegalArgumentException("Erro ao exibir conta do cliente: fornecedor nao pode ser vazio ou nulo.");
+		}
+	
+		if(cpf.length() != 11) {
+			throw new IllegalArgumentException("Erro ao exibir conta do cliente: cpf invalido.");
+		}
+		if(!clientes.containsKey(cpf)) {
+			throw new IllegalArgumentException("Erro ao exibir conta do cliente: cliente nao existe.");
+		}
+		if(!fornecedores.containsKey(fornecedor)) {
+			throw new IllegalArgumentException("Erro ao exibir conta do cliente: fornecedor nao existe.");
+		}
+	
+		if(clientes.get(cpf).getDebito(fornecedor) == null) {
+			throw new IllegalArgumentException("Erro ao exibir conta do cliente: cliente nao tem nenhuma conta com o fornecedor.");
+		}
+		
+		return clientes.get(cpf).exibeConta(fornecedor);
+	}
+	
+	public String exibeContas (String cpf) {
+		if(cpf.length() != 11) {
+			throw new IllegalArgumentException("Erro ao exibir contas do cliente: cpf invalido.");
+		}
+		if(!clientes.containsKey(cpf)) {
+			throw new IllegalArgumentException("Erro ao exibir contas do cliente: cliente nao existe.");
+		}
+		if(!clientes.get(cpf).exiteConta()) {
+			throw new IllegalArgumentException("Erro ao exibir contas do cliente: cliente nao tem nenhuma conta.");
+		}
+		return clientes.get(cpf).exibeContas();
+	}
 }
 
 

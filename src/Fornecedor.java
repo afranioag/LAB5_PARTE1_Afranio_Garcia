@@ -54,9 +54,11 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		if(indice < 0) {
 			throw new ArrayIndexOutOfBoundsException("Produto nao cadastrado");
 		}
-		//produtos.get(indice).setNome(nome);
-		//produtos.get(indice).setDescricao(descricao);
 		produtos.get(indice).setPreco(preco);
+	}
+	
+	public double precoProduto(String nome, String descricao) {
+		return produtos.get(this.existeProduto(nome, descricao)).getPreco();
 	}
 	
 	/**
