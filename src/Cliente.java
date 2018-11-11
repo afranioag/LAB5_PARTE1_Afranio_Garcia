@@ -43,7 +43,7 @@ public class Cliente implements Comparable<Cliente>{
 		contas.get(fornecedor).adicionaCompra(produto, data, preco);
 	}
 	
-	public String exibeConta() {	
+	public String exibeContas() {	
 		Set<String> fornecedores =  contas.keySet();
 		List<String> nomesFornecedores = new ArrayList<>();
 		
@@ -60,11 +60,12 @@ public class Cliente implements Comparable<Cliente>{
 			}else {
 				exibeConta += contas.get(chaves).toString()+" | ";
 			}
+			conte ++;
 		}
 		return exibeConta;
 	}
 	
-	public String exibeContas(String fornecedor) {
+	public String exibeConta(String fornecedor) {
 		return "Cliente: "+ this.nome +" | "+ contas.get(fornecedor).toString();
 	}
 	
@@ -72,7 +73,7 @@ public class Cliente implements Comparable<Cliente>{
 				return String.format("%.2f", contas.get(fornecedor).getDebito()).replace(",", ".");
 	}
 	
-	public boolean debitoFornecedor(String fornecedor) {
+	public boolean existeFornecedor(String fornecedor) {
 		return contas.containsKey(fornecedor);
 	}
 	

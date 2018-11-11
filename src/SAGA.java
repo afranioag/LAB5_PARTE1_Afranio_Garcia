@@ -511,7 +511,7 @@ public class SAGA {
 			throw new IllegalArgumentException("Erro ao recuperar debito: fornecedor nao existe.");
 		}
 	
-		if(!clientes.get(cpf).debitoFornecedor(fornecedor)) {
+		if(!clientes.get(cpf).existeFornecedor(fornecedor)) {
 			throw new IllegalArgumentException("Erro ao recuperar debito: cliente nao tem debito com fornecedor.");
 		}
 	
@@ -533,14 +533,14 @@ public class SAGA {
 			throw new IllegalArgumentException("Erro ao exibir conta do cliente: fornecedor nao existe.");
 		}
 	
-		if(clientes.get(cpf).getDebito(fornecedor) == null) {
+		if(!clientes.get(cpf).existeFornecedor(fornecedor)) {
 			throw new IllegalArgumentException("Erro ao exibir conta do cliente: cliente nao tem nenhuma conta com o fornecedor.");
 		}
 		
-		return clientes.get(cpf).exibeContas(fornecedor);
+		return clientes.get(cpf).exibeConta(fornecedor);
 	}
 	
-	public String exibeConta (String cpf) {
+	public String exibeContasClientes (String cpf) {
 		if(cpf.length() != 11) {
 			throw new IllegalArgumentException("Erro ao exibir contas do cliente: cpf invalido.");
 		}
@@ -550,7 +550,7 @@ public class SAGA {
 		if(!clientes.get(cpf).existeConta()) {
 			throw new IllegalArgumentException("Erro ao exibir contas do cliente: cliente nao tem nenhuma conta.");
 		}
-		return clientes.get(cpf).exibeConta();
+		return clientes.get(cpf).exibeContas();
 	}
 }
 

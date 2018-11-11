@@ -101,8 +101,8 @@ public class Facade {
 		return saga.exibeContas(cpf, fornecedor);
 	}
 	
-	public String exibeConta (String cpf) {
-		return saga.exibeConta(cpf);
+	public String exibeContasClientes (String cpf) {
+		return saga.exibeContasClientes(cpf);
 	}
 }
 

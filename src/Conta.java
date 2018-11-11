@@ -50,7 +50,7 @@ public class Conta {
 			nomes.add(com.toString());
 		}
 		
-		Collections.sort(nomes);
+		//Collections.sort(nomes);
 		
 		String comp = getFornecedor() +" | ";
 		
