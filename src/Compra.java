@@ -20,17 +20,6 @@ public class Compra implements Comparable<Conta>{
 	public String toString() {
 		return this.produto +" - "+ this.data.replaceAll("/", "-");
 	}
-	
-	public String toString(String criterio) {
-		if(criterio.equals("Data")){
-			return this.produto;
-		}
-		return this.produto +", "+ this.data;
-	}
-	
-	public String getProduto() {
-		return produto;
-	}
 
 
 	public double getPreco() {
