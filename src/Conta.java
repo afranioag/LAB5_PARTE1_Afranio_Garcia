@@ -18,8 +18,8 @@ public class Conta {
 		this.setDebito(getDebito()+preco);
 	}
 	
-	public void pagaConta(double valor) {
-		this.setDebito(this.getDebito() - valor);
+	public void pagaConta() {
+		this.setDebito(this.getDebito() - this.getDebito());
 	}
 	
 	public double getDebito() {
@@ -34,14 +34,6 @@ public class Conta {
 		return fornecedor;
 	}
 	
-//	public boolean existeContaFornecedor(String fornecedor) {
-//		if(compras.contains(fornecedor)) {
-//			return true;
-//		}
-//		return false;
-//	}
-//	
-	
 	public String toString() {
 		
 		int conte = 1;
@@ -49,8 +41,6 @@ public class Conta {
 		for(Compra com: compras) {
 			nomes.add(com.toString());
 		}
-		
-		//Collections.sort(nomes);
 		
 		String comp = getFornecedor() +" | ";
 		

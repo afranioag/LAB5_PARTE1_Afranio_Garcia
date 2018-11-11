@@ -11,13 +11,17 @@ import java.util.Set;
 public class SAGA {
 	private HashMap<String, Cliente> clientes;
 	private HashMap<String, Fornecedor> fornecedores;
-	
+	private String criterioDeOrdenacao = "Cliente";
 	/**
 	 * Inicializa o sistema criando um mapa de cliente e fornecedor.
 	 */
 	public SAGA() {
 		clientes = new HashMap<>();
 		fornecedores = new HashMap<>();
+	}
+	
+	private void setCriterioDeOrdenacao(String criterio) {
+		this.criterioDeOrdenacao = criterio;
 	}
 	
 	// metodos para clientes
@@ -465,23 +469,23 @@ public class SAGA {
 		if(cpf.length() != 11) {
 			throw new IllegalArgumentException("Erro ao cadastrar compra: cpf invalido.");
 		}
-		if(nome_prod.equals(null) || nome_prod.equals("")) {
+		if(nome_prod == null || nome_prod.equals("")) {
 			throw new IllegalArgumentException("Erro ao cadastrar compra: nome do produto nao pode ser vazio ou nulo.");
 		}
-		if(desc_prod.equals(null) || desc_prod.equals("")) {
+		if(desc_prod == null || desc_prod.equals("")) {
 			throw new IllegalArgumentException("Erro ao cadastrar compra: descricao do produto nao pode ser vazia ou nula.");
 		}
 		if(!clientes.containsKey(cpf)) {
 			throw new IllegalArgumentException("Erro ao cadastrar compra: cliente nao existe.");
 		}
-		if(data.equals(null) || data.equals("")) {
+		if(data == null || data.equals("")) {
 			throw new IllegalArgumentException("Erro ao cadastrar compra: data nao pode ser vazia ou nula.");
 		}
 		if(!clientes.get(cpf).dataCerta(data)) {
 			throw new IllegalArgumentException("Erro ao cadastrar compra: data invalida.");
 		}
 	
-		if(nome.equals(null) || nome.equals("")) {
+		if(nome == null || nome.equals("")) {
 			throw new IllegalArgumentException("Erro ao cadastrar compra: fornecedor nao pode ser vazio ou nulo.");
 		}
 	
@@ -497,7 +501,7 @@ public class SAGA {
 	}
 	
 	public String getDebito(String cpf, String fornecedor) {
-		if(fornecedor.equals(null) || fornecedor.equals("")) {
+		if(fornecedor == null || fornecedor.equals("")) {
 			throw new IllegalArgumentException("Erro ao recuperar debito: fornecedor nao pode ser vazio ou nulo.");
 		}
 	
@@ -519,7 +523,7 @@ public class SAGA {
 	}
 	
 	public String exibeContas(String cpf, String fornecedor) {
-		if(fornecedor.equals(null) || fornecedor.equals("")) {
+		if(fornecedor == null || fornecedor.equals("")) {
 			throw new IllegalArgumentException("Erro ao exibir conta do cliente: fornecedor nao pode ser vazio ou nulo.");
 		}
 	
@@ -551,6 +555,44 @@ public class SAGA {
 			throw new IllegalArgumentException("Erro ao exibir contas do cliente: cliente nao tem nenhuma conta.");
 		}
 		return clientes.get(cpf).exibeContas();
+	}
+	
+	public void realizaPagamento(String cpf, String fornecedor) {
+		if(cpf == null || cpf.equals("")) {
+			throw new IllegalArgumentException("Erro no pagamento de conta: cpf nao pode ser vazio ou nulo.");
+		}
+		if(cpf.length() != 11) {
+			throw new IllegalArgumentException("Erro no pagamento de conta: cpf invalido.");
+		}
+		if(fornecedor == null || fornecedor.equals("")) {
+			throw new IllegalArgumentException("Erro no pagamento de conta: fornecedor nao pode ser vazio ou nulo.");
+		}
+		if(!clientes.containsKey(cpf)) {
+			throw new IllegalArgumentException("Erro no pagamento de conta: cliente nao existe.");
+		}
+		if(!fornecedores.containsKey(fornecedor)) {
+			throw new IllegalArgumentException("Erro no pagamento de conta: fornecedor nao existe.");
+		}
+		if(!clientes.get(cpf).existeFornecedor(fornecedor)) {
+			throw new IllegalArgumentException("Erro no pagamento de conta: nao ha debito do cliente associado a este fornecedor.");
+		}
+		
+		clientes.get(cpf).realizaPagamento(fornecedor);
+	}
+	
+	public void ordenaPor(String criterio) {
+		if (criterio == null || criterio.equals("")) {
+			throw new IllegalArgumentException("Erro na listagem de compras: criterio nao pode ser vazio ou nulo.");
+		}
+		if (!criterio.equals("Data") && !criterio.equals("Cliente") && !criterio.equals("Fornecedor")) {
+			throw new IllegalArgumentException("Erro na listagem de compras: criterio nao oferecido pelo sistema.");
+		}
+		
+		this.setCriterioDeOrdenacao(criterio);
+	}
+	
+	public String listarCompras() {
+		return clientes.toString();
 	}
 }
 

@@ -19,6 +19,7 @@ public class Cliente implements Comparable<Cliente>{
 	private String nome;
 	private String email;
 	private HashMap<String, Conta> contas;
+	private String criterioDeOrdenacao = "Cliente";
 	
 	/**
 	 * constroi o cliente.
@@ -38,7 +39,7 @@ public class Cliente implements Comparable<Cliente>{
 	
 	public void adicionaCompra(String fornecedor, String data,  String produto, double preco){
 		if(!contas.containsKey(fornecedor)){
-			contas.put(fornecedor, new Conta(fornecedor));
+			contas.put(fornecedor, new Conta(fornecedor));			
 		}
 		contas.get(fornecedor).adicionaCompra(produto, data, preco);
 	}
@@ -65,6 +66,34 @@ public class Cliente implements Comparable<Cliente>{
 		return exibeConta;
 	}
 	
+	protected void setCriterioDeOrdenacao(String criterio) {
+		this.criterioDeOrdenacao = criterio;
+	}
+	
+//	public String listarCompras(String criterio) {
+//		List<String> listaComCriteriosOrdencao = new ArrayList<>();
+//		String listaCompras = "";
+//		
+//		if(criterio.equals("Fornecedor")) {
+//			Set<String> fornecedores =  contas.keySet();
+//			for(String nomes: fornecedores) {
+//				listaComCriteriosOrdencao.add(nomes);
+//			}
+//			
+//			Collections.sort(listaComCriteriosOrdencao);
+//			int conte = 1;
+//			for(String nomes: listaComCriteriosOrdencao) {
+//				if(conte == listaComCriteriosOrdencao.size()) {
+//					listaCompras += nomes+", " + this.nome + contas.get(nomes).toString(criterio);
+//				}
+//			}
+//		}
+//		
+//		return listaCompras;
+//		
+//	}
+	
+	
 	public String exibeConta(String fornecedor) {
 		return "Cliente: "+ this.nome +" | "+ contas.get(fornecedor).toString();
 	}
@@ -76,6 +105,12 @@ public class Cliente implements Comparable<Cliente>{
 	public boolean existeFornecedor(String fornecedor) {
 		return contas.containsKey(fornecedor);
 	}
+	
+	public void realizaPagamento(String fornecedor) {
+		contas.get(fornecedor).pagaConta();
+		contas.remove(fornecedor);
+	}
+	
 	
 	public boolean dataCerta(String data) {
 		String[] testaData = data.split("/");

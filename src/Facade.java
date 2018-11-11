@@ -8,7 +8,7 @@ import easyaccept.EasyAccept;
 
 public class Facade {
 	public static void main(String[] args) {
-		args = new String[] {"Facade", "easyaccept/use_case_1.txt","easyaccept/use_case_2.txt","easyaccept/use_case_3.txt", "easyaccept/use_case_4.txt", "easyaccept/use_case_5.txt"};
+		args = new String[] {"Facade", "easyaccept/use_case_1.txt","easyaccept/use_case_2.txt","easyaccept/use_case_3.txt", "easyaccept/use_case_4.txt", "easyaccept/use_case_5.txt", "easyaccept/use_case_6.txt", "easyaccept/use_case_7.txt"};
 		EasyAccept.main(args);
 	}
 	private SAGA saga;
@@ -39,6 +39,7 @@ public class Facade {
 	public String adicionaFornecedor(String nome, String email, String telefone) {
 			return saga.adicionaFornecedor(nome, email, telefone);
 	}
+	
 	
 	public String exibeFornecedor(String nome) {
 		return saga.exibeFornecedor(nome);
@@ -103,6 +104,18 @@ public class Facade {
 	
 	public String exibeContasClientes (String cpf) {
 		return saga.exibeContasClientes(cpf);
+	}
+	
+	public void realizaPagamento(String cpf, String fornecedor) {
+		saga.realizaPagamento(cpf, fornecedor);
+	}
+	
+	public void ordenaPor(String criterio) {
+		saga.ordenaPor(criterio);
+	}
+	
+	public String listarCompras() {
+		return saga.listarCompras();
 	}
 }
 
