@@ -1,4 +1,5 @@
 /**
+
  * Representação de um fornecedor de alimentos.
  * Ele é formado por um nome que é sua identidade, não podendo ser alterada, 
  * por um email e um telefone, como tambem por uma lista de produtos que ele comercializa.
@@ -77,6 +78,11 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		return -1;
 	}
 	
+	/**
+	 * Faz uma busca com os produtos passado para o combo, para saber se os produtos informados existe.
+	 * @param produtos a lista de produtos para o combo.
+	 * @return retorna um interio, 1 para existe e -1 para não existe
+	 */
 	public int existeProduto (String produtos) {
 		String[] produtosProd = produtos.split(", ");
 		int conte = 0;
@@ -149,6 +155,13 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	}
 	
 	// metodos para o combo
+	/**
+	 * Cadastra um combo a lista de prosutos de um fornecedor
+	 * @param nome o nome do combo
+	 * @param descricao a descrição do combo
+	 * @param fator o fator de desconto
+	 * @param produtos a lista de produtos
+	 */
 	public void cadastraCombo(String nome, String descricao, double fator, String produtos) {
 		String[] produtosCombo = produtos.split(", ");
 		double preco = 0;
@@ -165,11 +178,23 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		
 		this.produtos.add(new Combo(nome, descricao, preco, fator));
 	}
-
+	
+	/**
+	 * Edita o preõ do combo
+	 * @param nome o nome do combo
+	 * @param descricao a descrição do combo
+	 * @param novoFator o novo de calculo para o preço do combo
+	 */
 	public void editaPreco(String nome, String descricao, double novoFator) {
 		produtos.get(this.existeProduto(nome, descricao)).editaPreco(novoFator);
 	}
 	
+	/**
+	 * Faz uma busca na lista de produtos para saber se o produto é um combo.
+	 * Se for retorna true e se não for retorna false
+	 * @param produto o produto que se deseja saber o tipo
+	 * @return retorna um boleano
+	 */
 	public boolean encontraProduto(String produto) {
 		String[] produtosSeparados = produto.split(", ");
 		
@@ -191,11 +216,6 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		}
 		return false;
 	}
-	
-	public void editaCombo(String nome, String descricao, String fornecedor, double novoFator) {
-		produtos.get(this.existeProduto(nome, descricao)).editaPreco(novoFator);
-	}
-	
 	
 	public String getNome() {
 		return nome;

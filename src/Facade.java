@@ -1,5 +1,5 @@
 /**
- * Representação de uma fachada onde será rodado o sistema saga,
+ * Fachada onde será rodado o sistema saga,
  * ele apenas instancia e inicia o sistema.
  * Chamando todos os seus metodos de forma simples
  */

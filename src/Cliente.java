@@ -1,5 +1,5 @@
 /**
- * Representação de um cliente. Eles será construido a partir
+ * Representação de um cliente. Ele será construido a partir
  * do seu cpf que será sua identificação e deve seguir o modelo vigente do pais com 11 caracteres.
  * O nome, um local de trabalho e seu email.
  * @author afranio
@@ -37,13 +37,25 @@ public class Cliente implements Comparable<Cliente>{
 		contas = new HashMap<>();
 	}
 	
+	/**
+	 * Adiciona uma nova compra
+	 * @param fornecedor o nome do fornecedor a quem foi comprado
+	 * @param data a data da compra
+	 * @param produto o nome do produto
+	 * @param preco o preço do produto
+	 */
 	public void adicionaCompra(String fornecedor, String data,  String produto, double preco){
 		if(!contas.containsKey(fornecedor)){
-			contas.put(fornecedor, new Conta(fornecedor));			
+			contas.put(fornecedor, new Conta(fornecedor));	
+			
 		}
 		contas.get(fornecedor).adicionaCompra(produto, data, preco);
 	}
 	
+	/**
+	 * Retorna a representação das contas do cliente
+	 * @return retorna uma string com as compras
+	 */
 	public String exibeContas() {	
 		Set<String> fornecedores =  contas.keySet();
 		List<String> nomesFornecedores = new ArrayList<>();
@@ -70,30 +82,30 @@ public class Cliente implements Comparable<Cliente>{
 		this.criterioDeOrdenacao = criterio;
 	}
 	
-//	public String listarCompras(String criterio) {
-//		List<String> listaComCriteriosOrdencao = new ArrayList<>();
-//		String listaCompras = "";
-//		
-//		if(criterio.equals("Fornecedor")) {
-//			Set<String> fornecedores =  contas.keySet();
-//			for(String nomes: fornecedores) {
-//				listaComCriteriosOrdencao.add(nomes);
-//			}
-//			
-//			Collections.sort(listaComCriteriosOrdencao);
-//			int conte = 1;
-//			for(String nomes: listaComCriteriosOrdencao) {
-//				if(conte == listaComCriteriosOrdencao.size()) {
-//					listaCompras += nomes+", " + this.nome + contas.get(nomes).toString(criterio);
-//				}
-//			}
-//		}
-//		
-//		return listaCompras;
-//		
-//	}
+	public String listarCompras(String criterio, String cliente) {
+		Set<String> nomesFornecedores = contas.keySet();
+		List<String> nomesFornecedoresOrdenados = new ArrayList<>();
+		for(String nome: nomesFornecedores) {
+			nomesFornecedoresOrdenados.add(nome);
+		}
+		Collections.sort(nomesFornecedoresOrdenados);
+		
+		String listaOrdenada = "";
+		for(String nome: nomesFornecedoresOrdenados) {
+			if(this.existeFornecedor(nome)) {
+				listaOrdenada += contas.get(nome).listarCompras(criterio, cliente, nome);
+			}
+		}
+		
+		return listaOrdenada;
+		
+	}
 	
-	
+	/**
+	 * exibe a conta que um cliente tem com um determinado fornecedor
+	 * @param fornecedor o fornecedor que o cliente tem a conta
+	 * @return retorna as compras do cliente com esse fornecedor
+	 */
 	public String exibeConta(String fornecedor) {
 		return "Cliente: "+ this.nome +" | "+ contas.get(fornecedor).toString();
 	}
@@ -102,16 +114,30 @@ public class Cliente implements Comparable<Cliente>{
 				return String.format("%.2f", contas.get(fornecedor).getDebito()).replace(",", ".");
 	}
 	
+	/**
+	 * verifica se o cliente tem conta com o fornecedor
+	 * @param fornecedor o fornecedor que se deseja saber se existe conta com ele
+	 * @return retorn um boleando
+	 */
 	public boolean existeFornecedor(String fornecedor) {
 		return contas.containsKey(fornecedor);
 	}
 	
+	/**
+	 * realiza o pagamento do debito total que o cliente tem com esse fornecedor, 
+	 * a conta será excluida depois.
+	 * @param fornecedor o fornecedor que será pago
+	 */
 	public void realizaPagamento(String fornecedor) {
 		contas.get(fornecedor).pagaConta();
 		contas.remove(fornecedor);
 	}
 	
-	
+	/**
+	 * verifica se a data foi passa corretamente. no padrão dd/mm/aaa
+	 * @param data a data que será testada
+	 * @return retorna um boleano
+	 */
 	public boolean dataCerta(String data) {
 		String[] testaData = data.split("/");
 		if(Integer.parseInt(testaData[0]) <= 0 || Integer.parseInt(testaData[0]) > 31){
@@ -162,6 +188,8 @@ public class Cliente implements Comparable<Cliente>{
 		}
 		return false;
 	}
+	
+
 	
 	@Override
 	public int hashCode() {

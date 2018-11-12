@@ -1,3 +1,8 @@
+/**
+ * Representação de uma conta cliente. Ela será construída com
+ * uma lista de compras que esse cliente tem com um determinado fornecedor. E acumulará
+ * o debito desse cliente com esse fornecedor
+ */
 import java.text.Format;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,20 +13,38 @@ public class Conta {
 	private double debito;
 	private List<Compra> compras;
 	
+	/**
+	 * Constroi a conta cliente
+	 * @param fornecedor o fornecedor que o cliente fez as compras
+	 */
 	public Conta(String fornecedor) {
 		this.fornecedor = fornecedor;
 		compras = new ArrayList<Compra>();
 	}
-
+	
+	/**
+	 * Adiciona uma compra a lista. Caso o cliente ainda não tenha nenhuma compra será criada a lista de compras.
+	 * 
+	 * @param produto o nome do produto comprado
+	 * @param data a data da compra
+	 * @param preco o preço do produto
+	 */
 	public void adicionaCompra(String produto, String data, double preco) {
 		compras.add(new Compra(produto, data, preco));
 		this.setDebito(getDebito()+preco);
 	}
 	
+	/**
+	 * O cliente quita o debito total com o fornecedor
+	 */
 	public void pagaConta() {
 		this.setDebito(this.getDebito() - this.getDebito());
 	}
 	
+	/**
+	 * Retorna a divida do cliente
+	 * @return retorna um double com o debito
+	 */
 	public double getDebito() {
 		return this.debito;		
 	}
@@ -39,7 +62,7 @@ public class Conta {
 		int conte = 1;
 		List<String> nomes = new ArrayList<>();
 		for(Compra com: compras) {
-			nomes.add(com.toString());
+			nomes.add(com.toString().replaceAll("/", "-"));
 		}
 		
 		String comp = getFornecedor() +" | ";
@@ -55,6 +78,16 @@ public class Conta {
 		return comp;
 	}
 	
+	public String listarCompras(String criterio, String cliente, String fornecedor) {
+		String listaCompras = "";
+		Collections.sort(compras);
+		if(criterio.equals("Cliente")) {
+			for(Compra compra: compras) {
+				listaCompras += cliente +", "+ fornecedor +", "+ compra.getProduto() +", "+ compra.getData() +" | ";
+			}		
+		}
+		return listaCompras;
+	}
 	
 	@Override
 	public int hashCode() {

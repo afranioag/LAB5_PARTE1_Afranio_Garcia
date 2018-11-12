@@ -409,6 +409,14 @@ public class SAGA {
 		fornecedores.get(fornecedor).removeProduto(nome, descricao);
 	}
 	
+	/**
+	 * Adiciona um combo para o cliente
+	 * @param fornecedor o nome do fornecedor que tem os produtos do combo
+	 * @param nome o nome para o combo
+	 * @param descricao a drescrição para o combo
+	 * @param fator o fator para o desconto do combo
+	 * @param produtos uma string contendo os proutos que farão parte do combo
+	 */
 	public void adicionaCombo(String fornecedor, String nome, String descricao, double fator, String produtos) {
 		if(fornecedor == null || fornecedor.equals("")) {
 			throw new IllegalArgumentException("Erro no cadastro de combo: fornecedor nao pode ser vazio ou nulo.");
@@ -441,6 +449,13 @@ public class SAGA {
 		fornecedores.get(fornecedor).cadastraCombo(nome, descricao, fator, produtos);
 	}
 	
+	/**
+	 * Edita um combo. edita o preço
+	 * @param nome o nome do combo
+	 * @param descricao a descrição do combo
+	 * @param fornecedor o fornecedor que tem o combo
+	 * @param novoFator e o novo fator que será usado para calcular o novo preço
+	 */
 	public void editaCombo(String nome, String descricao, String fornecedor, double novoFator) {
 		if(fornecedor == null || fornecedor.equals("")) {
 			throw new IllegalArgumentException("Erro na edicao de combo: fornecedor nao pode ser vazio ou nulo.");
@@ -464,7 +479,14 @@ public class SAGA {
 		fornecedores.get(fornecedor).editaPreco(nome, descricao, novoFator);
 	}
 	
-	
+	/**
+	 * Adiciona uma compra que um cliente fez a um determinado fornecedor
+	 * @param cpf o cpf do cliente
+	 * @param nome o nome do fornecedor
+	 * @param data a data da compra
+	 * @param nome_prod o nome do produto, podendo ser simples ou combo
+	 * @param desc_prod a descrição do produto
+	 */
 	public void adicionaCompra(String cpf, String nome, String data, String nome_prod, String desc_prod) {
 		if(cpf.length() != 11) {
 			throw new IllegalArgumentException("Erro ao cadastrar compra: cpf invalido.");
@@ -500,6 +522,12 @@ public class SAGA {
 		clientes.get(cpf).adicionaCompra(nome, data, nome_prod, fornecedores.get(nome).precoProduto(nome_prod, desc_prod));
 	}
 	
+	/**
+	 * Retorna o debito que um cliente tem com um fornecedor
+	 * @param cpf o cpf do cliente
+	 * @param fornecedor o nome do fornecedor
+	 * @return retorna um boleando com o debito
+	 */
 	public String getDebito(String cpf, String fornecedor) {
 		if(fornecedor == null || fornecedor.equals("")) {
 			throw new IllegalArgumentException("Erro ao recuperar debito: fornecedor nao pode ser vazio ou nulo.");
@@ -522,6 +550,12 @@ public class SAGA {
 		return clientes.get(cpf).getDebito(fornecedor);
 	}
 	
+	/**
+	 * Exibe a conta de um cliente com um fornecedor
+	 * @param cpf o cpf do cliente
+	 * @param fornecedor o nome do fornecedor
+	 * @return uma string contendo uma lista de produtos que o cliente comprou 
+	 */
 	public String exibeContas(String cpf, String fornecedor) {
 		if(fornecedor == null || fornecedor.equals("")) {
 			throw new IllegalArgumentException("Erro ao exibir conta do cliente: fornecedor nao pode ser vazio ou nulo.");
@@ -544,6 +578,11 @@ public class SAGA {
 		return clientes.get(cpf).exibeConta(fornecedor);
 	}
 	
+	/**
+	 * Exibe todas as contas do cliente
+	 * @param cpf o cpf do cliente
+	 * @return retorna uma string com todas as compras feita pelo cliente
+	 */
 	public String exibeContasClientes (String cpf) {
 		if(cpf.length() != 11) {
 			throw new IllegalArgumentException("Erro ao exibir contas do cliente: cpf invalido.");
@@ -557,6 +596,11 @@ public class SAGA {
 		return clientes.get(cpf).exibeContas();
 	}
 	
+	/**
+	 * faz o pagamento do cliente a um fornecedor
+	 * @param cpf o cpf do cliente
+	 * @param fornecedor o nome do fornecedor
+	 */
 	public void realizaPagamento(String cpf, String fornecedor) {
 		if(cpf == null || cpf.equals("")) {
 			throw new IllegalArgumentException("Erro no pagamento de conta: cpf nao pode ser vazio ou nulo.");
@@ -580,6 +624,10 @@ public class SAGA {
 		clientes.get(cpf).realizaPagamento(fornecedor);
 	}
 	
+	/**
+	 * criterio de ordenação para exibição das compras do cliente, pode ser Cliente, Data ou Fornecedor o criterio.
+	 * @param criterio o nome do criterio que se deseja a ordem das compras.
+	 */
 	public void ordenaPor(String criterio) {
 		if (criterio == null || criterio.equals("")) {
 			throw new IllegalArgumentException("Erro na listagem de compras: criterio nao pode ser vazio ou nulo.");
@@ -591,8 +639,30 @@ public class SAGA {
 		this.setCriterioDeOrdenacao(criterio);
 	}
 	
+	/**
+	 * Exibe a lista de compras do cliente de acordo com o criterio de ordenação passado.
+	 * @return retorna uma string com as lista de compras
+	 */
 	public String listarCompras() {
-		return clientes.toString();
+		Set<String> cpfClientes = clientes.keySet();
+		List<String> nomesClientes = new ArrayList<String>();
+		for(String cpf: nomesClientes) {
+			if(clientes.get(cpf).existeConta()) {
+				nomesClientes.add(clientes.get(cpf).getNome());
+			}
+			
+		}
+		Collections.sort(nomesClientes);
+		
+		String compras = "";
+		for(String nome: nomesClientes) {
+			for(String cpf: nomesClientes) {
+				if(clientes.get(cpf).equals(nome)) {
+					compras += clientes.get(cpf).listarCompras(this.criterioDeOrdenacao, nome);
+				}
+			}
+		}
+		return compras ;
 	}
 }
 

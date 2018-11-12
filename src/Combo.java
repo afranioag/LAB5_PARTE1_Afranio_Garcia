@@ -1,7 +1,21 @@
+/**
+ * Extende a classe produto, e representa um produto do tipo combo
+ * Será a junção de mais de um produto. Tendo um desconto a cada produto somado.
+ * 
+ * @author afranio
+ *
+ */
 
 public class Combo extends Produto{
 	private double fator;
 	
+	/**
+	 * Constroi o combo
+	 * @param nome o nome que o combo terá
+	 * @param descricao a descrição
+	 * @param preco o preço somado dos produto que faz parte do combo
+	 * @param fator o fator de desconto para esse combo
+	 */
 	public Combo(String nome, String descricao, double preco, double fator) {
 		
 		super(nome, descricao, (preco*(1 - fator)));

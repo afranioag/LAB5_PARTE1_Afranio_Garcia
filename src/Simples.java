@@ -1,6 +1,7 @@
 /**
- * Representação de um produto alimenticio para lanchonetes
+ * Representação de um produto alimenticio simples para lanchonetes
  * Ele é criado a partir de um nome, uma descrição e o seu preço de mercado.
+ * Extendendo a classe produto
  * @author afranio
  *
  */
@@ -49,15 +50,6 @@ public class Simples extends Produto {
 		return true;
 	}
 	
-	/**
-	 * Exibe o produto a partir do seu ToString,
-	 * Para isso ele precisa receber o nome do produto e sua descrição para saber 
-	 * a qual produto se refere
-	 * @param nome o nome do produto
-	 * @param descricao a descrição do produto
-	 * @return retorna uma string com a representação do produto. NOME - DESCRIÇÃO - PREÇO
-	 */
-	
 	@Override
 	public int compareTo(Produto p) {
 		return toString().compareTo(p.toString());
@@ -71,7 +63,7 @@ public class Simples extends Produto {
 	public String toString() {
 		return this.nome+" - "+this.descricao+" - R$"+String.format("%.2f", this.preco);
 	}
-
+	
 	@Override
 	public void editaPreco(double preco) {
 		this.setPreco(preco);	
